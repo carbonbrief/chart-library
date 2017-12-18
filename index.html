@@ -9,96 +9,75 @@
 		<link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700|PT+Serif:400,400italic" rel="stylesheet" type="text/css">
 		<style type="text/css">
 		
-		body {
-			margin: 0;
-			padding: 0;
-			background: #333333;
-			font: 14px 'PT Sans', sans-serif;
-		}
+		body {margin: 0; padding: 0; background: #333333; font: 14px 'PT Sans', sans-serif;}
 		
-		h1 {
-			font-family: "PT Sans Narrow", Arial;
-			font-weight: normal;
-			font-size: 40px;
-			color: #f3f3f3;
-		}
+		h1 {font-family: "PT Sans Narrow", Arial; font-weight: normal; font-size: 40px; color: #f3f3f3;}
 
-		h2 {
-			font-family: "PT Sans Narrow", Arial;
-			font-weight: bold;
-			font-size: 25px;
-			padding-left: 20px;
-			color: #f3f3f3;
+		h2 {font-family: "PT Sans Narrow", Arial; font-weight: bold; font-size: 25px; padding-left: 20px; color: #f3f3f3;}
+		
+		header {margin-left: 20px;}
+		
+		#wrap {overflow: hidden; margin: 20px;}
+				
+		.box {
+			float: left;
+			position: relative;
+			width: 16.66%;
+			padding-bottom: 16.66%;
+			transition: all .2s ease-in-out;
 		}
 		
-		header {
-			margin-left: 20px;
+		.box:hover { transform: scale(1.1); }
+		
+		.boxInner {
+			position: absolute;
+			left: 15px;
+			right: 15px;
+			top: 15px;
+			bottom: 15px;
+			overflow: hidden;
 		}
 		
-		#wrap {
-					overflow: hidden;
-					margin: 20px;
-				}
-				
-				.box {
-					float: left;
-					position: relative;
-					width: 16.66%;
-					padding-bottom: 16.66%;
-					transition: all .2s ease-in-out;
-				}
-				
-				.box:hover { transform: scale(1.1); }
-				
-				.boxInner {
-					position: absolute;
-					left: 15px;
-					right: 15px;
-					top: 15px;
-					bottom: 15px;
-					overflow: hidden;
-				}
-				
-				.boxInner img {
+		.boxInner img {
+			width: 100%;
+		}
+		
+		
+		@media only screen and (max-width : 350px) {
+			/* Smartphone view: 1 tile */
+			.box {
 					width: 100%;
-				}
-				
-				
-				@media only screen and (max-width : 350px) {
-					/* Smartphone view: 1 tile */
-					.box {
-							width: 100%;
-							padding-bottom: 100%;
-					}
-				}
-				@media only screen and (max-width : 500px) and (min-width : 351px) {
-					/* Tablet view: 2 tiles */
-					.box {
-							width: 50%;
-							padding-bottom: 50%;
-					}
-				}
-				@media only screen and (max-width : 800px) and (min-width : 501px) {
-					/* Small desktop / ipad view: 3 tiles */
-					.box {
-							width: 33.3%;
-							padding-bottom: 33.3%;
-					}
-				}
-				@media only screen and (max-width : 1090px) and (min-width : 801px) {
-					/* Medium desktop: 4 tiles */
-					.box {
-							width: 25%;
-							padding-bottom: 25%;
-					}
-				}
-				@media only screen and (max-width : 1290px) and (min-width : 1091px) {
-					/* Medium desktop: 4 tiles */
-					.box {
-							width: 20%;
-							padding-bottom: 20%;
-					}
-				}
+					padding-bottom: 100%;
+			}
+		}
+		@media only screen and (max-width : 500px) and (min-width : 351px) {
+			/* Tablet view: 2 tiles */
+			.box {
+					width: 50%;
+					padding-bottom: 50%;
+			}
+		}
+		@media only screen and (max-width : 800px) and (min-width : 501px) {
+			/* Small desktop / ipad view: 3 tiles */
+			.box {
+					width: 33.3%;
+					padding-bottom: 33.3%;
+			}
+		}
+		@media only screen and (max-width : 1090px) and (min-width : 801px) {
+			/* Medium desktop: 4 tiles */
+			.box {
+					width: 25%;
+					padding-bottom: 25%;
+			}
+		}
+		@media only screen and (max-width : 1290px) and (min-width : 1091px) {
+			/* Medium desktop: 4 tiles */
+			.box {
+					width: 20%;
+					padding-bottom: 20%;
+			}
+		}
 				
 
 		</style> 
@@ -112,7 +91,7 @@
 			<h1>A library of Carbon Brief's interactive charts</h1>
 		</header>	
 		<section>
-			<h2>Static charts</h2> 
+			<h2>Charts</h2> 
 			<div id="wrap">
 					<div class="box">
 						<div class="boxInner">
@@ -168,15 +147,24 @@
 						<div class="boxInner">
 							<a href="treemaps.html"><img src="img/treemap.jpg" /></a>
 						</div>
-					</div>
-					<div class="box">
-						<div class="boxInner">
-							<a href="maps.html"><img src="img/map.jpg" /></a>
-						</div>
-					</div>					
+					</div>				
 				</div>
 			</section>
-
+			<section>
+					<h2>Maps</h2>
+					<div id="wrap">
+						<div class="box">
+							<div class="boxInner">
+								<a href="world-map.html"><img src="img/world-map.jpg" /></a>
+							</div>
+						</div>
+						<div class="box">
+							<div class="boxInner">
+								<a href="europe-map.html"><img src="img/europe-map.jpg" /></a>
+							</div>
+						</div>
+					</div>
+			</section>
 			<section>
 				<h2>Dynamic charts</h2>
 				<div id="wrap">

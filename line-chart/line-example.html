@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
   <head>
     <!-- important to include so that the browser knows how to render special characters -->
     <meta charset="utf-8">
@@ -10,8 +11,9 @@
     <script src="https://code.highcharts.com/modules/data.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
   </head>
-  <style>
 
+  <style>
+    /* CSS that controls the style of the chart */
     /* you can set dimemsions for the chart here by changing the max-width and height of "container". This is probably the only part of the <style> section that you'll need to change. */
     #container {max-width: 800px; height: 600px;}
     #logocontainer{ max-width: 800px; height: 26px;}
@@ -19,28 +21,17 @@
     #mobile-image {display: none; width: 100%; height: 400px; image-rendering: crisp-edges;}
     #mobile-image img { max-width:100%; height:auto;}
 
-    @media screen and (min-width: 830px) {
-        #logo {left: 778px;}
-    }
-
-    @media (max-width: 450px) {
-      #mobile-image {display: inline-block;}
-      #container {display: none;}
-    }
-
-    @media (max-width: 400px) {
-      #mobile-image {height: 350px;}
-    }
-
-    @media (max-width: 350px) {
-      #mobile-image {height: 300px;}
-    }
-
+    @media screen and (min-width: 830px) { #logo {left: 778px;}}
+    @media (max-width: 450px) { #mobile-image {display: inline-block;} #container {display: none;} }
+    @media (max-width: 400px) { #mobile-image {height: 350px;} }
+    @media (max-width: 350px) { #mobile-image {height: 300px;} }
   </style>
+
   <body>
+    <!-- this part describes the basic structure of the website you'll be creating. It's written in HTML -->  
     <div id="container"></div>
     <div id="mobile-image">
-      <!-- This image will display instead of the interactive chart on a mobile screen, so change this to the name of the screenshot that you've taken. Make sure that you include you image of the chart in the same AWS folder as the file. -->
+      <!-- This image will display instead of the interactive chart on a mobile screen, so change this to the name of the screenshot that you've taken (don't include the logo in the screenshot or it will be included twice). Make sure that you include you image of the chart in the same AWS folder as the file. -->
       <!-- We've decided to switch to using images of the chart on a mobile since a) the interactivity is hard to use on a mobile anyway and b) although the chart scales well for medium screens it doesn't scale well on a mobile -->
       <img src="line-example.jpg"/>
     </div>
@@ -49,6 +40,8 @@
     </div>
 
     <script type="text/javascript">
+
+      // this section in the script tags is where everything that controls and draws the map goes. It's written in Javascript
       $(function() {
         Highcharts.setOptions({
 
@@ -67,7 +60,7 @@
         // create the chart
         $('#container').highcharts({
 
-          // here is the CB colour scheme, for basic charts with distinct series
+          // here is the CB colour scheme, for basic charts with distinct series. note that you need to use the american spelling of colour for HTML CSS and Javascript.
           // dark blue - 0b4572
           // yellow - EFC530
           // light blue - 2f8fce
@@ -149,7 +142,7 @@
 
           tooltip: {
               valueSuffix: 'C',
-              // defines what's in the tooltip and in what format. <br> is html for a line break and, unusually, doesn't require a closing tag (</br>). <b> indicates that the text will be bold and requires a closing tag (</b>)
+              // defines what's in the tooltip and in what format. <br> is html for a line break and, unusually, doesn't require a closing tag. <b> indicates that the text will be bold and requires a closing tag (</b>)
               pointFormat: '{series.name}: <br> <b>{point.y}</b>',
               // if shared all series will be shown at once
               shared: false
@@ -176,6 +169,9 @@
         function(chart) { // on complete
         });
       });
+    
+
+    // these tags close all the sections of the document that haven't yet been closed
     </script>
   </body>
 </html>
