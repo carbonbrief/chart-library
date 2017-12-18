@@ -1,0 +1,46 @@
+body {
+	margin-left: 20px;
+	margin-top: 20px;
+}
+
+h1 {
+	font-family: "PT Sans Narrow", Arial;
+	font-weight: normal;
+}
+
+h2 {
+	font-family: "PT Sans Narrow", Arial;
+	font-weight: bold;
+	font-size: 25px;
+	padding-left: 20px;
+}
+
+h3 {
+	font-family: "PT Sans", Arial;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+p {
+	font-family: "PT Serif", Georgia;
+}
+
+a:link {
+    text-decoration: none;
+		color: #0b4572;
+}
+
+a:visited {
+    text-decoration: none;
+		color: #0b4572;
+}
+
+a:hover {
+    text-decoration: underline;
+		color: #2f8fce;
+}
+
+a:active {
+    text-decoration: underline;
+		color: #2f8fce;
+}

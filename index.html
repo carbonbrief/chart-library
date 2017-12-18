@@ -1,0 +1,195 @@
+<!DOCTYPE HTML> 
+<html> 
+	<head> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- Tells browsers not to scale by default so media queries can be applied -->
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">   
+		<title>Carbon Brief's Interactive Charts'</title>
+		<link type="text/css" rel="stylesheet" href="../css/style.css" />
+		<link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700|PT+Serif:400,400italic" rel="stylesheet" type="text/css">
+		<style type="text/css">
+		
+		body {
+			margin: 0;
+			padding: 0;
+			background: #EEE;
+			font: 14px 'PT Sans', sans-serif;
+		}
+		
+		h1 {
+			font-family: "PT Sans Narrow", Arial;
+			font-weight: normal;
+			font-size: 40px;
+		}
+
+		h2 {
+			font-family: "PT Sans Narrow", Arial;
+			font-weight: bold;
+			font-size: 25px;
+			padding-left: 20px;
+		}
+		
+		header {
+			margin-left: 20px;
+		}
+		
+		#wrap {
+					overflow: hidden;
+					margin: 20px;
+				}
+				
+				.box {
+					float: left;
+					position: relative;
+					width: 16.66%;
+					padding-bottom: 16.66%;
+					transition: all .2s ease-in-out;
+				}
+				
+				.box:hover { transform: scale(1.1); }
+				
+				.boxInner {
+					position: absolute;
+					left: 15px;
+					right: 15px;
+					top: 15px;
+					bottom: 15px;
+					overflow: hidden;
+				}
+				
+				.boxInner img {
+					width: 100%;
+				}
+				
+				
+				@media only screen and (max-width : 350px) {
+					/* Smartphone view: 1 tile */
+					.box {
+							width: 100%;
+							padding-bottom: 100%;
+					}
+				}
+				@media only screen and (max-width : 500px) and (min-width : 351px) {
+					/* Tablet view: 2 tiles */
+					.box {
+							width: 50%;
+							padding-bottom: 50%;
+					}
+				}
+				@media only screen and (max-width : 800px) and (min-width : 501px) {
+					/* Small desktop / ipad view: 3 tiles */
+					.box {
+							width: 33.3%;
+							padding-bottom: 33.3%;
+					}
+				}
+				@media only screen and (max-width : 1090px) and (min-width : 801px) {
+					/* Medium desktop: 4 tiles */
+					.box {
+							width: 25%;
+							padding-bottom: 25%;
+					}
+				}
+				@media only screen and (max-width : 1290px) and (min-width : 1091px) {
+					/* Medium desktop: 4 tiles */
+					.box {
+							width: 20%;
+							padding-bottom: 20%;
+					}
+				}
+				
+
+		</style> 
+		<!-- Enable media queries for old IE -->
+		<!--[if lt IE 9]>
+			<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+		<![endif]-->
+	</head> 
+	<body>
+		<header>
+			<h1>A library of Carbon Brief's interactive charts</h1>
+		</header>	
+		<section>
+			<h2>Static charts</h2> 
+			<div id="wrap">
+					<div class="box">
+						<div class="boxInner">
+							<a href="line-charts.html"><img src="img/line-chart.jpg" /></a>
+						</div>
+					</div>
+					<div class="box">
+						<div class="boxInner">
+							<a href="column-charts.html"><img src="img/column-chart.jpg" /></a>
+						</div>
+					</div>
+					<div class="box">
+						<div class="boxInner">
+							<a href="grouped-column.html"><img src="img/grouped-column-chart.jpg" /></a>
+						</div>
+					</div>
+					<div class="box">
+						<div class="boxInner">
+							<a href="stacked-column.html"><img src="img/stacked-column-chart.jpg" /></a>
+						</div>
+					</div>
+					<div class="box">
+						<div class="boxInner">
+							<a href="stacked-bar.html"><img src="img/stacked-bar-chart.jpg" /></a>
+						</div>
+					</div>
+					<div class="box">
+						<div class="boxInner">
+							<a href="stacked-area.html"><img src="img/stacked-area-chart.jpg" /></a>
+						</div>
+					</div>
+					<div class="box">
+						<div class="boxInner">
+							<a href="line-and-column.html"><img src="img/line-and-column.jpg" /></a>
+						</div>
+					</div>
+					<div class="box">
+						<div class="boxInner">
+							<a href="scatter-and-column.html"><img src="img/scatter-and-column.jpg" /></a>
+						</div>
+					</div>
+					<div class="box">
+						<div class="boxInner">
+							<a href="line-and-stacked-area.html"><img src="img/line-and-stacked-area.jpg" /></a>
+						</div>
+					</div>
+					<div class="box">
+						<div class="boxInner">
+							<a href="small-multiples-column.html"><img src="img/small-multiples-stacked-column.jpg" /></a>
+						</div>
+					</div>
+					<div class="box">
+						<div class="boxInner">
+							<a href="treemaps.html"><img src="img/treemap.jpg" /></a>
+						</div>
+					</div>
+					<div class="box">
+						<div class="boxInner">
+							<a href="maps.html"><img src="img/map.jpg" /></a>
+						</div>
+					</div>					
+				</div>
+			</section>
+
+			<section>
+				<h2>Dynamic charts</h2>
+				<div id="wrap">
+					<div class="box">
+						<div class="boxInner">
+							<a href="column-drilldown.html"><img src="img/column-drilldown.jpg" /></a>
+						</div>
+					</div>
+					<div class="box">
+						<div class="boxInner">
+							<a href="pie-drilldown.html"><img src="img/pie-drilldown.jpg" /></a>
+						</div>
+					</div>
+				</div>
+			</section>
+
+	</body> 
+</html>
