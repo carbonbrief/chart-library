@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 
   <head>
+
     <!-- important to include so that the browser knows how to render special characters -->
     <meta charset="utf-8">
-    <!-- change the description and title for your chart -->
-    <meta name="description" content="line chart example">
+    <!-- change the description and title for your chart. These parts are helpful for search engines and screen readers -->
+    <meta name="description" content="Line chart example">
     <title>Line chart example | Carbon Brief</title>
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/data.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  
+    <style>
+      /* CSS that controls the style of the chart */
+      /* you can set dimemsions for the chart here by changing the max-width and height of "container". This is probably the only part of the <style> section that you'll need to change. */
+      #container {max-width: 800px; height: 600px;}
+      #logocontainer{ max-width: 800px; height: 26px;}
+      #logo {position: absolute; right:10px;}
+      #mobile-image {display: none; width: 100%; height: 400px; image-rendering: crisp-edges;}
+      #mobile-image img { max-width:100%; height:auto;}
+
+      @media screen and (min-width: 830px) { #logo {left: 778px;}}
+      @media (max-width: 450px) { #mobile-image {display: inline-block;} #container {display: none;} }
+      @media (max-width: 400px) { #mobile-image {height: 350px;} }
+      @media (max-width: 350px) { #mobile-image {height: 300px;} }
+    </style>
+
   </head>
-
-  <style>
-    /* CSS that controls the style of the chart */
-    /* you can set dimemsions for the chart here by changing the max-width and height of "container". This is probably the only part of the <style> section that you'll need to change. */
-    #container {max-width: 800px; height: 600px;}
-    #logocontainer{ max-width: 800px; height: 26px;}
-    #logo {position: absolute; right:10px;}
-    #mobile-image {display: none; width: 100%; height: 400px; image-rendering: crisp-edges;}
-    #mobile-image img { max-width:100%; height:auto;}
-
-    @media screen and (min-width: 830px) { #logo {left: 778px;}}
-    @media (max-width: 450px) { #mobile-image {display: inline-block;} #container {display: none;} }
-    @media (max-width: 400px) { #mobile-image {height: 350px;} }
-    @media (max-width: 350px) { #mobile-image {height: 300px;} }
-  </style>
 
   <body>
     <!-- this part describes the basic structure of the website you'll be creating. It's written in HTML -->  
