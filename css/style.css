@@ -12,17 +12,20 @@ h2 {
 	font-family: "PT Sans Narrow", Arial;
 	font-weight: bold;
 	font-size: 25px;
-	padding-left: 20px;
+	padding-left: 15px;
 }
 
 h3 {
 	font-family: "PT Sans", Arial;
 	font-weight: bold;
-	font-size: 15px;
+	font-size: 18px;
+	padding-left: 15px;
 }
 
 p {
 	font-family: "PT Serif", Georgia;
+	padding-left: 20px;
+	margin-bottom: 40px;
 }
 
 a:link {
@@ -43,4 +46,9 @@ a:hover {
 a:active {
     text-decoration: underline;
 		color: #2f8fce;
+}
+
+.download {
+	border: 3px solid #2f8fce;
+	padding: 5px;
 }
