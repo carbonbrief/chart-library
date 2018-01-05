@@ -1,0 +1,172 @@
+<html>
+	<head>
+		<!-- important to include so that the browser knows how to render special characters -->
+		<meta charset="utf-8">
+		<!-- change the description and title for your chart. These parts are helpful for search engines and screen readers. the description appears below the link in search engines -->
+		<meta name="description" content="Grouped column example chart">
+		<title>Grouped column example chart | Carbon Brief</title>
+		<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/modules/data.js"></script>
+		<script src="https://code.highcharts.com/modules/exporting.js"></script>
+		<style>
+			/* CSS that controls the style of the chart */
+      /* you can set dimemsions for the chart here by changing the max-width and height of "container". This is probably the only part of the <style> section that you'll need to change. */
+			#container {max-width: 800px; height: 450px;}
+			#logocontainer{ max-width: 800px; height: 26px;}
+			#logo {position: absolute; right:10px;}
+			#mobile-image {display: none; width: 100%; height: 400px; image-rendering: crisp-edges;}
+      #mobile-image img { max-width:100%; height:auto;}	
+			@media screen and (min-width: 830px) {	#logo {left: 778px;}}
+			@media (max-width: 450px) { #mobile-image {display: inline-block;} #container {display: none;} }
+			@media (max-width: 400px) { #mobile-image {height: 350px;} }
+			@media (max-width: 350px) { #mobile-image {height: 300px;} }		
+		</style>
+	</head>
+	<body>
+		<!-- this part describes the basic structure of the website you'll be creating. It's written in HTML -->
+		<div id="container"></div>
+		<div id="mobile-image">
+				<!-- This image will display instead of the interactive chart on a mobile screen, so change this to the name of the screenshot that you've taken (don't include the logo in the screenshot or it will be included twice). Make sure that you include you image of the chart in the same AWS folder as the file. -->
+				<!-- We've decided to switch to using images of the chart on a mobile since a) the interactivity is hard to use on a mobile anyway and b) although the chart scales well for medium screens it doesn't scale well on a mobile -->
+				<img src="grouped-column-chart-example.png"/>
+		</div>
+		<div id="logocontainer">
+			<img id="logo" src="https://s3-eu-west-1.amazonaws.com/cbhighcharts/CB-logo-for-highcharts.png">
+		</div>
+		<script type="text/javascript">
+			// this section in the script tags is where everything that controls and draws the map goes. It's written in Javascript
+			$(function() {
+				Highcharts.setOptions({
+
+					// here is the CB colour scheme, for basic charts with distinct series. note that you need to use the american spelling of colour for HTML, CSS and Javascript.
+					// dark blue - 0b4572
+					// yellow - EFC530
+					// light blue - 2f8fce
+					// red - C7432B
+					// light grey - 999999
+					// lilac - A14A7B
+					// orange - DF9239
+					// if you need more colours or need to use a colour scale, see the design style guide for more information about chart colours and gradients: https://docs.google.com/document/d/1-xJ2Jt2uy-fNIMTchpeamnXzvZLPczwpn4pW5TyFAFQ/edit#heading=h.gvujm268l3zd
+					colors: ['#0b4572', '#C7432B', '#2f8fce', '#EFC530', '#DF9239', '#999999', '#A14A7B'],
+					
+					chart: {
+					// set the font family for the chart. We use PT Sans to contrast with PT Serif which is the CB body text. Sans fonts are also easier to read at small point sizes.
+						style: {
+							fontFamily: '"PT Sans", Arial, sans-serif'
+						}
+					},
+					// tells highcharts that thousands are to be separated by a comma, when separation is specified (it's not necessary in this example because the max number is 100)
+					lang: {
+						thousandsSep: ','
+					}
+				});
+
+				// create the chart
+				$('#container').highcharts({
+					chart: {
+						renderTo: 'container',
+						backgroundColor: 'transparent',
+						type: 'column',
+						// allows the user to zoom in to the chart on the x and y axis
+						// you can set to allow x zoom or y zoom only
+						zoomType: 'x,y'
+					},
+					
+					// set the title of the chart
+					title: {
+							text: 'IEA forecasts of global thermal coal demand in 2022*',
+							align: 'left',
+							margin: 30
+					},
+					
+					navigation: {
+						buttonOptions: {
+							// removes the hamburger menu. set to 'true' in order to be able to download an svg
+								enabled: false
+						}
+					},
+
+					// turn off the highcharts credit
+					credits: {
+						enabled: false
+					},
+
+					plotOptions: {
+						column: {
+							pointPadding: 0,
+							groupPadding: 0.2
+						}
+					},
+
+					// options for the y axis
+					yAxis: {
+						// controls the order of series in a stacked column/area chart
+						reversedStacks: false,
+						labels: {
+							style: {
+								fontSize: '12px'
+							},
+							// sets the format of the y axis text, in this case to one decimal place plus 'C'. See here for more examples: https://www.highcharts.com/docs/chart-concepts/labels-and-string-formatting
+							format: '{value:,.0f}'
+						},
+						// set the title of the y axis
+						title: {
+							text: 'Millions of tonnes of coal equivalent'
+						}
+					},
+
+					// sets options for the x axis
+					xAxis: {
+						type: 'category',
+						//  crosshairs are pairs of perpendicular lines on a graph that move when the mouse moves. In this case we're only setting on on the x axis so there will only be a vertical lines
+						crosshair: {
+							color: '#E5E5E5'
+						},
+							labels: {
+								style: {
+									fontSize: '12px'
+								}
+							}
+					},
+
+					// sets options for the tooltip
+					tooltip: {
+						valueDecimals: 1,
+						// defines what's in the tooltip and in what format. <br> is html for a line break and, unusually, doesn't require a closing tag. <b> indicates that the text will be bold and requires a closing tag (</b>)
+						pointFormat: '{series.name}: <br/> <b>{point.y:,.0f}</b><br/>',
+					},
+
+					// sets options for the legend
+					legend: {
+						// turn the legend on or off
+						enabled: true,
+						padding: 10,
+						layout: 'horizontal',
+						floating: false,
+						verticalAlign: 'top',
+						// you can fine-tune the legend position here
+						y: 40
+					},
+
+					// change to your spreadsheet
+					// to do this you have to publish the spreadsheet to the web
+					// then grab the code from the url
+					// for example here, the bit after "d/" and before the final "/"
+					// https://docs.google.com/spreadsheets/d/1NAzRluJxGjyrJqsI6kjtSYxcPXTIL-lQZ6chFDcx2XI/
+					data: {
+						googleSpreadsheetKey: '1GDnBn_q9EiZevBXJWNmKmd_Cj_yptTi4JSVFo9jlPAA'
+					}
+				},
+
+				function(chart) { // on complete
+					chart.renderer.image()
+						.add();
+				});
+
+			});
+			
+		// these tags close all the sections of the document that haven't yet been closed
+		</script>
+	</body>
+</html>
