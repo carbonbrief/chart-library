@@ -1,0 +1,170 @@
+<!DOCTYPE html> 
+
+	<head>
+		<title>Graphs: BEIS projections 2016 electricity | Carbon Brief</title>
+		<!-- important to include so that the browser knows how to render special characters -->
+		<meta charset="UTF-8">
+		<!-- change the description and title for your chart. These parts are helpful for search engines and screen readers -->
+		<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/modules/data.js"></script>
+		<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	</head>
+
+	<style>
+		/* CSS that controls the style of the chart */
+    /* you can set dimemsions for the chart here by changing the height of "#container". This is probably the only part of the <style> section that you'll need to change. */
+		#container {max-width: 800px;height: 500px; }
+		#logocontainer{ max-width: 800px; height: 26px;}
+		#logo {position: absolute; right:10px;}
+		
+		@media screen and (min-width: 830px) {
+				#logo { left: 778px; }
+		}
+	</style>
+
+	<body>
+
+		<!-- this part describes the basic structure of the website you'll be creating. It's written in HTML -->  
+		<div id="container" style="max-width: 800px"></div>
+		<div id="logocontainer">
+			<img id="logo" src="https://s3-eu-west-1.amazonaws.com/cbhighcharts/CB-logo-for-highcharts.png">
+		</div>
+		
+		<script type="text/javascript">     
+		// this section in the script tags is where everything that controls and draws the map goes. It's written in Javascript         
+			$(function() {
+				Highcharts.setOptions({
+
+					// here is the CB colour scheme
+					// dark blue - 0b4572
+					// yellow - EFC530
+					// light blue - 2f8fce
+					// red - C7432B
+					// light grey - 999999
+					// lilac - A14A7B
+					// orange - DF9239
+					// you can make your own gradient custom here:
+					// http://www.strangeplanet.fr/work/gradient-generator/?c=9:FFFFFF:000000
+					colors: ['#999999', '#DF9239', '#333333', '#0b4572', '#C7432B', '#EFC530', '#A14A7B', '#EFC530', '#999999', '#999999' ],
+					lang: {
+						thousandsSep: ','
+					},
+					chart: {
+						style: {
+							fontFamily: 'PT Sans'
+						}
+					}
+				});
+
+				$('#container').highcharts({
+					chart: {
+						renderTo: 'container',
+						backgroundColor: 'transparent',
+						// creates area chart. See www.highcharts.com/demo/ for more options
+						type: 'area',
+						// you can set to allow x zoom or y zoom only
+						zoomType: 'x,y'
+					},
+					title: {
+						// change the title for your graph
+						text: 'Projected sources of UK electricity',
+						align: 'left'
+					},
+					navigation: {
+						buttonOptions: {
+							// removes the hamburger menu. set to 'true' if you want to be able to download an svg
+							enabled: false
+						}
+					},
+					credits: {
+            // removes the highcharts logo
+						enabled: false
+					},
+					plotOptions: {
+						area: {
+							marker: {
+								enabled: false,
+							},
+							stacking: 'true',
+							lineWidth: 0,
+						},
+					},
+
+					// options for the y axis
+					yAxis: {
+						reversedStacks: false,
+						labels: {
+							style: {
+								fontSize: '12px'
+							},
+							// sets the format of the y axis text, in this case to one decimal place plus 'C'. See here for more examples: https://www.highcharts.com/docs/chart-concepts/labels-and-string-formatting
+							format: '{value:,.0f} TWh'
+						},
+						title: {
+							// add text if your y axis needs a label
+							text: ''
+						}
+					},
+
+					// options for the x axis
+					xAxis: {
+						crosshair: {
+							//  crosshairs are pairs of perpendicular lines on a graph that move when the mouse moves. In this case we're only setting on on the x axis so there will only be a vertical lines
+							color: '#E5E5E5'
+						},
+						labels: {
+							style: {
+								fontSize: '12px'
+							}
+						},
+						// adds grey band, remove code if you don't want one
+						plotBands: {
+							from: 2017,
+							to: 2035,
+							color: 'rgba(153, 153, 153, 0.15)',
+							zIndex: 10,
+						},
+					},
+
+					// options for the tooltip
+					tooltip: {
+						// defines what's in the tooltip and in what format. <br> is html for a line break and, unusually, doesn't require a closing tag. <b> indicates that the text will be bold and requires a closing tag (</b>)	
+						pointFormat: '<span style="color:{series.color}">\u25CF</span> {series.name}: <b>{point.y:,.0f} TWh</b><br/>',
+						crosshairs: 'true',
+						// if shared all series will be shown at once
+						shared: true
+					},
+
+					// options for the legend
+					legend: {
+						enabled: true,
+						padding: 20,
+						layout: 'horizontal',
+						floating: false,
+						verticalAlign: 'top',
+						// you can fine-tune the legend position here
+						y: 20
+					},
+
+					data: {
+						// change to your spreadsheet
+            // to do this you have to publish the spreadsheet to the web
+            // then grab the code from the url
+            // for example here, the bit after "d/" and before the final "/"
+            // https://docs.google.com/spreadsheets/d/1NAzRluJxGjyrJqsI6kjtSYxcPXTIL-lQZ6chFDcx2XI/
+						googleSpreadsheetKey: '1vuxQRIlDjquGXnuSKHLSpljXQKo2P8d7l_x7QdblKFk',
+						complete: function (options) {
+							var series = options.series;
+						}
+					}
+				},
+				function(chart) {  // on complete
+				});
+			});
+			
+		
+    // these tags close all the sections of the document that haven't yet been closed
+		</script>
+	</body>
+</html>
