@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>  
+    <head>
+        <!-- important to include so that the browser knows how to render special characters -->
+        <meta charset="utf-8">
+        <!-- change the description and title for your chart. These parts are helpful for search engines and screen readers -->
+        <meta name="description" content="World map example">
+        <title>World map example | Carbon Brief</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Tells browsers not to scale by default so media queries can be applied -->
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+        <script src="https://code.highcharts.com/maps/modules/data.js"></script>
+        <script src="https://code.highcharts.com/mapdata/custom/world-robinson-highres.js"></script>
+    
+        <style>
+        /* CSS that controls the style of the chart */
+        /* you can set dimemsions for the chart here by changing the max-width and height of "container". This is probably the only part of the <style> section that you'll need to change. */
+        #container1 { height: 500px; min-width: 310px; max-width: 800px;}
+        .loading { margin-top: 10em; text-align: center; color: gray;}
+        #logocontainer{ max-width: 800px; height: 26px;}
+        #logo {position: absolute; right:10px;}
+    
+        @media screen and (min-width: 830px) {#logo {left: 778px;}}
+    
+        </style>
+    </head>
+
+    <body>
+	<!-- this part describes the basic structure of the website you'll be creating. It's written in HTML -->  
+        <div id="container1">
+            <div class="loading">
+                <i class="icon-spinner icon-spin icon-large"></i>
+                Loading data from Google Spreadsheets...
+            </div>
+        </div>
+        <div id="logocontainer">
+            <img id="logo" src="https://s3-eu-west-1.amazonaws.com/cbhighcharts/CB-logo-for-highcharts.png">
+        </div>
+        
+        <script type="text/javascript">
+
+            // this section in the script tags is where everything that controls and draws the map goes. It's written in Javascript
+            $(function () {               
+                Highcharts.data({
+
+                    // change to your spreadsheet
+                    // to do this you have to publish the spreadsheet to the web
+                    // then grab the code from the url
+                    // for example here, the bit after "d/" and before the final "/"
+                    // https://docs.google.com/spreadsheets/d/1NAzRluJxGjyrJqsI6kjtSYxcPXTIL-lQZ6chFDcx2XI/
+                    googleSpreadsheetKey: '1BsBIYK4K1Gu4wn3i322oy1yGFeEfFQ5e3rcYxMIw-nM',
+
+	               // custom handler when the spreadsheet is parsed
+	               parsed: function (columns) {
+
+	               // Read the columns into the data array
+	                   var data = [];
+	                   $.each(columns[0], function (i, code) {
+	                       data.push({
+	                           code: code.toUpperCase(),
+	                           value: parseFloat(columns[2][i]),
+	                           name: columns[1][i]
+	                       });
+	                   });
+
+
+            // Initiate the chart
+                        $('#container1').highcharts('Map', {
+
+                            chart: {
+                                borderWidth: 0,
+                                style: {
+                                    // set the font for the chart. We use PT Sans to contrast with PT Serif which is the CB body text. Sans fonts are also easier to read at small point sizes.
+                                    fontFamily: '"PT Sans", Arial, sans-serif'
+                                }
+                            },
+
+                            // here is the CB colour scheme, for basic charts with distinct series. note that you need to use the american spelling of colour for HTML CSS and Javascript.
+                            // dark blue - 0b4572
+                            // yellow - EFC530
+                            // light blue - 2f8fce
+                            // red - C7432B
+                            // light grey - 999999
+                            // lilac - A14A7B
+                            // orange - DF9239
+                            // if you need more colours or need to use a colour scale, see the design style guide for more information about chart colours and gradients: https://docs.google.com/document/d/1-xJ2Jt2uy-fNIMTchpeamnXzvZLPczwpn4pW5TyFAFQ/edit#heading=h.gvujm268l3zd
+                            // in this case the map uses the red #C7432B but it is written in rgba instead  of as a hex code (there are a number of different ways to describe particular colours, hex code and rgb are just two). 
+                            // this is because the the 'a' (alpha channel) part of rgba allows you to specify opacity.
+
+                            colors: ['rgba(11,69,114,0.1)', 'rgba(11,69,114,0.2)', 'rgba(11,69,114,0.4)',
+                                'rgba(11,69,114,0.5)', 'rgba(11,69,114,0.6)', 'rgba(11,69,114,0.8)', 'rgba(11,69,114,1)'],
+
+                            title: {
+                                // change for your chart
+                                text: 'Share of effective carbon price OECD',
+                                align: 'left',
+                            },
+
+                            mapNavigation: {
+                                // removes the hamburger menu. set to 'true' in order to be able to download an svg
+                                enabled: false
+                            },
+                            
+                            credits: {
+                                // removes the highcharts logo
+                                enabled: false
+                            },
+
+                            legend: {
+                                title: {
+                                    // % symbol should  be rendered ok if you've specified charse=UTF-8 in the <head> of the document (see above)
+                                    text: 'Share of emissions (%)',
+                                    style: {
+                                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
+                                    }
+                                },
+                                align: 'left',
+                                verticalAlign: 'bottom',
+                                floating: true,
+                                layout: 'vertical',
+                                valueDecimals: 0,
+                                // gives the key a white but slightly transparent background
+                                backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || 'rgba(255, 255, 255, 0.85)',
+                                symbolRadius: 0,
+                                symbolHeight: 14
+                            },
+
+                            colorAxis: {
+                                // colours for the key, expressed at hex codes here. note that colour must always be written the American way in javascript/HTML/CSS
+                                dataClasses: [{
+                                    
+            						to: 0
+                                }, {
+                                    from: 1,
+                                    to: 5
+                                }, {
+                                    from: 5,
+                                    to: 10
+                                }, {
+                                    from: 10,
+                                    to: 20
+                                }, {
+                                    from: 20,
+                                    to: 30
+                                }, {
+                                    from: 30,
+                                    to: 40
+                                }, {
+                                    from: 40
+                                }]
+                            },
+
+                            series: [{
+                                data: data,
+                                // say which map you want, in this case World Robinson
+                                mapData: Highcharts.maps['custom/world-robinson-highres'],
+                                joinBy: ['iso-a2', 'code'],
+                                animation: true,
+                                // change title for your map
+                                name: 'Share of emissions',
+                                states: {
+                                    hover: {
+                                        // specifies colour on hover, in this case the yellow used in CB charts
+                                        color: '#EFC530'
+                                    }
+                                },
+                                tooltip: {
+                                //valuePrefix: '\u20AC',
+                                    valueSuffix: ' %'
+                                }
+                            }]
+                        });
+                    },
+                    error: function () {
+                        // makes an error message appear if it can't get the data from Google sheets properly
+                        $('#container').html('<div class="loading">' +
+                            '<i class="icon-frown icon-large"></i> ' +
+                            'Error loading data from Google Spreadsheets' +
+                            '</div>');
+                    }
+                });
+            });
+    
+            // these tags close all the sections of the document that haven't yet been closed
+        </script>	
+    </body>
+</html>
