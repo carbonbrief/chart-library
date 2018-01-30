@@ -13,7 +13,7 @@
 
 	<style>
 		/* CSS that controls the style of the chart */
-    /* you can set dimemsions for the chart here by changing the height of "#container". This is probably the only part of the <style> section that you'll need to change. */
+		/* you can set dimemsions for the chart here by changing the height of "#container". This is probably the only part of the <style> section that you'll need to change. */
 		#container {max-width: 800px;height: 500px; }
 		#logocontainer{ max-width: 800px; height: 26px;}
 		#logo {position: absolute; right:10px;}
@@ -59,6 +59,7 @@
 
 				$('#container').highcharts({
 					chart: {
+						// specifies which div (box) the chart is rendering to, in this case the div with the id container. If you do more than one chart you'll need to create and extra div and change the name here.
 						renderTo: 'container',
 						backgroundColor: 'transparent',
 						// creates area chart. See www.highcharts.com/demo/ for more options
@@ -78,7 +79,7 @@
 						}
 					},
 					credits: {
-            // removes the highcharts logo
+						// removes the highcharts logo
 						enabled: false
 					},
 					plotOptions: {
