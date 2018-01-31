@@ -16,8 +16,10 @@
 			#logocontainer{ max-width: 800px; height: 26px;}
 			#logo {position: absolute; right:10px;}
 			#mobile-image {display: none; width: 100%; height: 400px; image-rendering: crisp-edges;}
-      #mobile-image img { max-width:100%; height:auto;}	
+			#mobile-image img { max-width:100%; height:auto;}	
 			@media screen and (min-width: 830px) {	#logo {left: 778px;}}
+			/* these media queries are to ensure that there isn't loads of whitespace below the image as the screen size decreases. 
+			They may benefit from fine tuning, as your chart may be a different shape to the example */
 			@media (max-width: 450px) { #mobile-image {display: inline-block;} #container {display: none;} }
 			@media (max-width: 400px) { #mobile-image {height: 350px;} }
 			@media (max-width: 350px) { #mobile-image {height: 300px;} }		
