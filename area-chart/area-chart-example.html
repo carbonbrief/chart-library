@@ -1,0 +1,183 @@
+<!DOCTYPE html> 
+
+	<head>
+		<!-- important to include so that the browser knows how to render special characters -->
+		<meta charset="UTF-8">
+		<!-- change the description and title for your chart. These parts are helpful for search engines and screen readers -->
+		<meta name="description" content="Area chart example">
+		<title>Area chart example | Carbon Brief</title>
+		<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/modules/data.js"></script>
+		<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+		<style>
+			/* CSS that controls the style of the chart */
+			/* you can set dimemsions for the chart here by changing the max-width and height of "container". This is probably the only part of the <style> section that you'll need to change. */
+			#container {max-width: 800px; height: 450px;}	
+			#logocontainer{ height: 26px; display: inline-block;}
+			#logo {position: absolute; right:10px;}
+			@media screen and (min-width: 830px) {	#logo {left: 778px;}}
+		</style>
+
+	</head>
+
+	<body>
+
+		<!-- this part describes the basic structure of the website you'll be creating. It's written in HTML -->
+		<div id="container"></div>
+		<div id="logocontainer">
+			<img id="logo" src="https://s3-eu-west-1.amazonaws.com/cbhighcharts/CB-logo-for-highcharts.png">
+		</div>
+
+		<script type="text/javascript">  
+			// this section in the script tags is where everything that controls and draws the map goes. It's written in Javascript
+			
+			$(function() {
+				Highcharts.setOptions({
+				// tells highcharts that thousands are to be separated by a comma, when separation is specified (it's not necessary in this example because the max number is 100)
+					lang: {
+						thousandsSep: ','
+					},
+					chart: {
+						style: {
+								// set the font family for the chart. We use PT Sans to contrast with PT Serif which is the CB body text. Sans fonts are also easier to read at small point sizes.
+							fontFamily: 'PT Sans'
+						}
+					}
+				});
+
+				// Create the chart
+				$('#container').highcharts({
+
+					// here is the CB colour scheme
+					// dark blue - 0b4572
+					// yellow - EFC530
+					// light blue - 2f8fce
+					// red - C7432B
+					// light grey - 999999
+					// lilac - A14A7B
+					// orange - DF9239
+					// you can make your own gradient custom here:
+					// http://www.strangeplanet.fr/work/gradient-generator/?c=9:FFFFFF:000000
+
+
+					colors: ['#333333', '#0b4572', '#A14A7B', '#DF9239', '#C7432B', '#999999', '#A14A7B', '#EFC530', '#999999', '#999999' ],
+					chart: {
+						renderTo: 'container',
+						backgroundColor: 'transparent',
+						type: 'area',
+						// allows the user to zoom in to the chart on the x and y axis
+						// you can set to allow x zoom or y zoom only
+						zoomType: 'x,y'
+					},
+					// set the title of the chart
+					title: {
+						text: 'Global CO2 emissions: Yearly change',
+						align: 'left'
+					},
+					navigation: {
+						buttonOptions: {
+							// removes the hamburger menu. set to 'true' in order to be able to download an svg
+							enabled: false
+						}
+					},
+					// turns of the highcharts credit
+					credits: {
+						enabled: false
+					},
+					plotOptions: {
+						area: {
+							lineWidth: 3,
+							symbol: 'circle',
+							marker: {
+								enabled: false,
+								radius: 3
+							}
+						},
+						column: {
+							groupPadding: 0
+						}
+					},
+
+					// options for the y axis
+
+					yAxis: {
+						reversedStacks: false,
+
+						labels: {
+							style: {
+								fontSize: '12px'
+							},
+							format: '{value:,.0f} MtCO2'
+						},
+						title: {
+							text: ''
+						},
+						min: -1000,
+						max: 1500,
+						tickInterval: 500
+					},
+					xAxis: {
+						//  type: 'category',
+						
+						crosshair: {
+										//  width: 40,
+							// pale grey #E5E5E5
+							// black #000000
+										color: '#E5E5E5'
+									},
+						labels: {
+						style: {
+							fontSize: '12px'
+						}
+					}
+					},
+
+						tooltip: {  
+						formatter: function() {
+							var firstValueInData = this.series.yData[0],
+							rate1, rate2;
+							rate1 = (100 * (this.y - this.series.yData[(this.x - 2000)-10])/this.series.yData[(this.x - 2000)-10]).toFixed(1);
+							rate2 = (100 * (this.y - this.series.yData[(this.x - 2000)-1])/this.series.yData[(this.x - 2000)-1]).toFixed(1);
+						
+							// turning off tooltips for undefined values
+							if (typeof this.y === 'undefined') {
+								return false;
+							// custom tooltip for the rest values
+							} else {
+								if (this.x > 1975) {				  
+									return this.x + '<br/><span style="color:' + this.point.color + '">\u25CF</span> ' + this.series.name + ': <b>' + Highcharts.numberFormat(this.y,0) + ' MtCO2</b><br/>';
+								} else {
+									return this.x + '<br/><span style="color:' + this.point.color + '">\u25CF</span> ' + this.series.name + ': <b>' + Highcharts.numberFormat(this.y,0) + ' MtCO2</b><br/>(' + (rate2 > 0 ? '+' + Highcharts.numberFormat(rate1,0) : Highcharts.numberFormat(rate1,0)) + ' % since ' + (this.x -1) +')';
+								}				    	          }
+						},
+							},
+							legend: {
+
+						// turn the legend on or off
+
+						enabled: false,
+						padding: 20,
+						// set the layout of the legend
+
+						layout: 'horizontal',
+						floating: false,
+						verticalAlign: 'top',
+						y: 20,
+						//x: 15,
+						},
+						data: {
+							googleSpreadsheetKey: '1lmn3gFqQY-204MsGh29AXwmBK_HwrRmOAH7cMp-fg9Y',
+						}
+				},
+
+				function(chart) { // on complete
+				});
+
+
+			});
+
+		</script>
+	</body>
+</html>
