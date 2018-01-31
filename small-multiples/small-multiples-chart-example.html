@@ -1,0 +1,807 @@
+<!DOCTYPE html>  
+    <head>
+        <meta charset="utf-8">
+        <!-- important to include so that the browser knows how to render special characters -->
+		<title>Graphs: BEIS projections new capacity compared | Carbon Brief</title>
+        <!-- change the description and title for your chart. These parts are helpful for search engines and screen readers -->
+        <meta name="description" content="Example maps of Europe">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- Tells browsers not to scale by default so media queries can be applied -->
+		<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/modules/data.js"></script>
+		<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	</head>
+	<style>
+        /* CSS that controls the style of the chart */
+        /* you can set dimemsions for the chart here by changing the height of ".container". This is probably the only part of the <style> section that you'll need to change. */
+		#wrapper { padding: 10px; display: inline-block; width: 100%; }
+		.container { float: left; position: relative; width: 50%; padding-bottom: 2%; height: 270px; max-width: 660px;}
+		#logocontainer{ height: 26px; display: inline-block; width:100%;}
+		#logo {position: absolute; right:10px;}
+	
+		@media only screen and (max-width : 660px) {
+	   		/* Smartphone view: 1 tile */
+	   		.container { width: 100%; padding-bottom: 2%;}
+		 	#wrapper { width: 100%;}
+		}
+	
+		@media screen and (min-width: 920px) {
+			/* Moves to 3 tiles when the screen width is above 920px */
+   			.container { width: 33.33%; padding-bottom: 2%; }
+	 		#wrapper { width: 100%; }
+		}
+	
+	</style>
+	<body>
+		<!-- this part describes the basic structure of the website you'll be creating. It's written in HTML -->   
+  <div id="#wrapper">
+		<div id="container1" class="container" ></div>
+		<div id="container2" class="container" ></div>
+		<div id="container3" class="container" ></div>
+		<div id="container4" class="container" ></div>
+		<div id="container5" class="container" ></div>
+		<div id="container6" class="container" ></div>
+	</div>
+	<div id="logocontainer">
+		<img id="logo" src="https://s3-eu-west-1.amazonaws.com/cbhighcharts/CB-logo-for-highcharts.png">
+	</div>
+
+    <script type="text/javascript">        
+	
+		// this section in the script tags is where everything that controls and draws the map goes. It's written in Javascript
+        $(function () {
+	  
+	  		Highcharts.setOptions({
+
+			    // here is the CB colour scheme
+			    // dark blue - 0b4572
+			    // yellow - EFC530
+			    // light blue - 2f8fce
+			    // red - C7432B
+			    // light grey - 999999
+			    // lilac - A14A7B
+			    // orange - DF9239
+
+			    // this line sets the colours
+			    // the first colour is for bottom chunk of a stacked column (reversed: false)
+			    // here I've used a gradient of 15 steps from CB dark blue to red, via grey
+			    // you can make your own gradient custom here:
+			    // http://www.strangeplanet.fr/work/gradient-generator/?c=9:FFFFFF:000000
+
+		        colors: ["#D2DCE3", "#A5B9C8", "#7192AB", "#0B4572", "#C7432B" ],
+			    lang: {
+					thousandsSep: ','
+			    },
+			    chart: {
+		     	      style: {
+			        fontFamily: 'PT Sans'
+			      }
+			    }
+			});
+
+	  	// Initiate the first chart by selecting the relevant container i.e. 1
+	  	$('#container1').highcharts({
+	      	chart: {
+	      		// make sure renderTo matches right graph in order to appear in correct/intended order
+	        	renderTo: 'container1',
+		        backgroundColor: 'transparent',
+		        // select the desired type of chart
+		        type: 'line',
+		        zoomType: 'x,y'
+	      	},
+
+	      title: {
+	      		// change for your chart
+	        	text: 'Cumulative new renewable capacity',
+			  	align: 'left'
+	      	},
+		  
+		  navigation: {
+		              buttonOptions: {
+		              	// removes the hamburger menu. set to 'true' if you want to be able to download an svg
+		                  enabled: false
+		              	}
+		        	},
+
+			credits: {
+				  	// removes the highcharts logo
+					enabled: false
+				  	},
+				  	plotOptions: {
+					  	series: {
+						  	states: {
+							  	hover: {
+								  	lineWidth: 3.5
+							  		}
+						  		}
+					  		},
+						line: {
+							width: 0,
+							symbol: 'circle',
+							marker: {
+						  	// change to 'true' if you want your line to have markers (with no quotation marks since it's a boolean value)
+							  	enabled: false,
+							  	radius: 3
+						  		}
+					  	},
+				  	},
+				  	// options for the y axis
+				  	yAxis: {
+					  reversedStacks: true,
+					  tickInterval: 25,
+					  minorTickInterval: 5,
+					  minorGridLineWidth: 0.6,
+					  gridLineWidth: 1.2,
+					  max: 50,
+					  labels: {
+						  style: {
+							  fontSize: '12px'
+						  },
+						  // sets the format of the y axis text, in this case to one decimal place plus 'C'. See here for more examples: https://www.highcharts.com/docs/chart-concepts/labels-and-string-formatting
+						  format: '{value:,.0f} GW'
+						},
+					  title: {
+					  	 // add text if your y axis needs a label
+							text: ''
+					  }
+					},
+				    // options for x axis
+				  
+				  	xAxis: {
+					  crosshair: {
+					  	//  crosshairs are pairs of perpendicular lines on a graph that move when the mouse moves. In this case we're only setting on on the x axis so there will only be a vertical lines
+						  color: '#E5E5E5'
+					  			},
+					  labels: {
+						  style: {
+							  fontSize: '12px'
+						  		}
+					  		}
+				  	},
+				  
+				  	tooltip: {
+					  formatter: function() {
+					  	//changes the text permanently displayed in the tooltip, in example 'Forecast by '
+						  var s = '<b>Forecast by ' + this.x + '</b>';
+						  $.each(this.points, function () {
+							  s += '<br/><span style="color:' + this.point.color + '">\u25CF</span> ' + this.series.name + ': ' + Highcharts.numberFormat(this.y,0) + ' GW';
+							  });
+							  return s;
+						  },
+						  // if true all plotted entry points on same graph will be dsiaplyed for comparative analysis in the tooltip
+						  shared: true
+					},
+					
+					legend: {
+					  	// set to false if you want to turn the legend off
+						  enabled: true,
+						  layout: 'horizontal',
+						  floating: false,
+						  verticalAlign: 'top',
+						   // you can fine-tune the legend position here (remove // before the y or x to unsilence it)
+						  //y: 40,
+						  //x: 15,
+					},
+					  
+
+					data: {
+					  	// change to your spreadsheet
+            			// to do this you have to publish the spreadsheet to the web
+            			// then grab the code from the url
+            			// for example here, the bit after "d/" and before the final "/"
+            			// https://docs.google.com/spreadsheets/d/1NAzRluJxGjyrJqsI6kjtSYxcPXTIL-lQZ6chFDcx2XI/
+						  googleSpreadsheetKey: '1wtGOlkpdBKPkbdnSbYGE3U-0yQpQC6yFwk4yYuu6jgs',
+						// specify the first column in the datasheet this particular graph is showing, starting at 0
+						// specify the last column to pull data from into this graph. In example, graph no.2 will begin with 6, startColumn: 6 
+						  startColumn: 0,
+						  endColumn: 5,
+			              complete: function (options) {
+			              	var series = options.series;
+							series[4].lineWidth = '3';
+						}
+					}
+				},
+			function(chart) { // on complete
+			});
+		});
+    
+		// close the script tag to completely close this graph before moving onto the next one
+    	</script>
+
+<!-- Repeat steps from above in the following charts, ensuring you correspond the container chart to the same renderTo input, and you declare which column of data the chart begins with and which it ends with, remembering that we start with column '0' -->
+	
+	<!-- CHART 2 -->
+
+	    <script type="text/javascript">        
+		$(function() {
+		  Highcharts.setOptions({
+			  chart: {
+				  style: {
+					  fontFamily: 'PT Sans'
+				  }
+			  }
+		});
+		//remember to change this container  
+		$('#container2').highcharts({
+			  	chart: {
+			  	// and remember to change this container, and so forth for the rest of the remaining charts
+		        	renderTo: 'container2',
+		        	backgroundColor: 'transparent',
+		        	type: 'line',
+		        	zoomType: 'x,y'
+		      	},
+		      	title: {
+				  	text: 'Cumulative new gas capacity',
+				  	align: 'left'
+		      	},
+			  	navigation: {
+			        buttonOptions: {
+			           	enabled: false
+			            }
+			        },
+					credits: {
+						enabled: false
+					},
+					plotOptions: {
+						series: {
+							states: {
+								hover: {
+									lineWidth: 3.5
+								}
+							}
+						},
+						  
+						line: {
+							  	width: 0,
+							  	symbol: 'circle',
+							  	marker: {
+								  	enabled: false,
+								  	radius: 3
+							  	}
+						  	},
+					  	},
+					  
+					  	yAxis: {
+						  	tickInterval: 25,
+						  	minorTickInterval: 5,
+						  	minorGridLineWidth: 0.6,
+						  	gridLineWidth: 1.2,
+						  	max: 50,
+						  	//min: 3000,
+						  	
+							  	labels: {
+								  	style: {
+									  	fontSize: '12px'
+								  	},
+								  	format: '{value:,.0f} GW'
+							  	},
+							  
+							  	title: {
+								  	text: ''
+							  	}
+						},
+
+						xAxis: {
+							crosshair: {
+				                color: '#E5E5E5'
+							},
+							labels: {
+								  	style: {
+									  	fontSize: '12px'
+								  	}
+							  	}
+						},
+
+						tooltip: {
+							  formatter: function() {
+								  var s = '<b>Forecast by ' + this.x + '</b>';
+								  $.each(this.points, function () {
+									  s += '<br/><span style="color:' + this.point.color + '">\u25CF</span> ' + this.series.name + ': ' + Highcharts.numberFormat(this.y,0) + ' GW';
+									  });
+									  return s;
+								},
+								  shared: true
+						},
+							  
+						legend: {
+							  enabled: true,
+							  layout: 'horizontal',
+							  floating: false,
+							  verticalAlign: 'top',
+							  //y: 40,
+							  //x: 15,
+						},
+						  
+					  	data: {
+					  	googleSpreadsheetKey: '1wtGOlkpdBKPkbdnSbYGE3U-0yQpQC6yFwk4yYuu6jgs',
+					  	startColumn: 6,
+					  	endColumn: 11,
+						  	complete: function (options) {
+							  	var series = options.series;
+							  	series[4].lineWidth = '3';
+						  	}
+						}
+			},
+					  
+			function(chart) {
+			});
+		});
+
+	    </script>
+
+	    <!-- CHART 3 -->
+						  
+		<script type="text/javascript">        
+			  	$(function() {
+			  		Highcharts.setOptions({
+			  		  		chart: {
+			  		  			style: {
+			  		  					fontFamily: 'PT Sans'
+			  		  			}
+			  		  		}
+			  		});
+			  	$('#container3').highcharts({
+			  				chart: {
+			  						backgroundColor: 'transparent',
+			  						type: 'line',
+			  						zoomType: 'x,y'
+			  				},
+			  				title: {
+			  						text: 'Cumulative new interconnector capacity',
+			  						align: 'left'
+			  				},
+			  				navigation: {
+			  					        buttonOptions: {
+			  					                enabled: false
+			  					        }
+			  				},
+
+			  				credits: {
+			  							enabled: false
+			  				},
+							plotOptions: {
+								  series: {
+									  states: {
+										  hover: {
+											  lineWidth: 3.5
+										  }
+									  }
+								  },
+									
+								line: {
+									width: 0,
+									symbol: 'circle',
+									marker: {
+											enabled: false,
+											radius: 3
+											}
+								},
+							},
+										  
+							yAxis: {
+								    tickInterval: 25,
+								    minorTickInterval: 5,
+								    minorGridLineWidth: 0.6,
+								    gridLineWidth: 1.2,
+  								    max: 50,
+  								    //min: 3000,
+						  	
+								    labels: {
+										style: {
+											fontSize: '12px'
+										},
+										format: '{value:,.0f} GW'
+									},
+									  title: {
+										  text: ''
+									  }
+							},
+
+			  				xAxis: {
+			  						crosshair: {
+			  						            color: '#E5E5E5'
+			  						},
+			  						labels: {
+			  								style: {
+			  									fontSize: '12px'
+			  								}
+			  						}
+			  				},
+
+							tooltip: {
+								  formatter: function() {
+									  var s = '<b>Forecast by ' + this.x + '</b>';
+									  $.each(this.points, function () {
+										  s += '<br/><span style="color:' + this.point.color + '">\u25CF</span> ' + this.series.name + ': ' + Highcharts.numberFormat(this.y,0) + ' GW';
+										  });
+										  return s;
+								  },
+								  shared: true
+							},
+			  				      
+			  				legend: {
+								  	enabled: true,
+								  	layout: 'horizontal',
+								  	floating: false,
+								  	verticalAlign: 'top',
+								  	//y: 40,
+								  	//x: 15,
+							  	},
+			  								  
+			  				data: {
+						  		googleSpreadsheetKey: '1wtGOlkpdBKPkbdnSbYGE3U-0yQpQC6yFwk4yYuu6jgs',
+						  		startColumn: 12,
+						  		endColumn: 17,
+			  					complete: function (options) {
+			  						var series = options.series;
+			  						series[4].lineWidth = '3';
+			  					}
+			  				}
+			  	},
+			  							  
+			  	function(chart) {
+			  	});
+		});
+    
+		</script>
+									  
+			<!-- CHART 4 -->
+
+		<script type="text/javascript">        
+					$(function() {
+						Highcharts.setOptions({
+							chart: {
+								style: {
+									fontFamily: 'PT Sans'
+						  		}
+						  	}
+						});
+					
+					$('#container4').highcharts({
+		  					chart: {
+		  						backgroundColor: 'transparent',
+		  						type: 'line',
+		  						zoomType: 'x,y'
+		  					},
+		  					
+		  					title: {
+		  						text: 'Cumulative new nuclear capacity',
+		  						align: 'left'
+		  					},
+		  					  
+		  					navigation: {
+		  					    buttonOptions: {
+								enabled: false
+		  						}
+		  					},
+
+		  					credits: {
+		  						enabled: false
+		  					},
+									  
+							plotOptions: {
+									series: {
+										states: {
+											hover: {
+												lineWidth: 3.5
+											}
+										}
+									},
+									line: {
+										width: 0,
+										symbol: 'circle',
+										marker: {
+											enabled: false,
+											radius: 3
+										}
+									},
+							},
+									  
+							yAxis: {
+							  	tickInterval: 25,
+							  	minorTickInterval: 5,
+							  	minorGridLineWidth: 0.6,
+							  	gridLineWidth: 1.2,
+							  	max: 50,
+								//min: 3000,
+		  	
+		  						labels: {
+		  							style: {
+		  								fontSize: '12px'
+		  							},
+		  							format: '{value:,.0f} GW'
+		  						},
+		  									  
+		  						title: {
+		  							text: ''
+		  						}
+		  					},
+
+		  					xAxis: {
+		  						crosshair: {
+		  						    color: '#E5E5E5'
+		  						},
+		  						labels: {
+		  							style: {
+		  								fontSize: '12px'
+		  							}
+		  						}
+		  					},
+
+							tooltip: {
+								formatter: function() {
+									var s = '<b>Forecast by ' + this.x + '</b>';
+									$.each(this.points, function () {
+										s += '<br/><span style="color:' + this.point.color + '">\u25CF</span> ' + this.series.name + ': ' + Highcharts.numberFormat(this.y,0) + ' GW';
+									});
+									return s;
+								},
+								shared: true
+							},
+		  								  
+							legend: {
+									enabled: true,
+									layout: 'horizontal',
+									floating: false,
+									verticalAlign: 'top',
+									//y: 40,
+									//x: 15,
+							},
+		  								  
+		  					data: {
+						  		googleSpreadsheetKey: '1wtGOlkpdBKPkbdnSbYGE3U-0yQpQC6yFwk4yYuu6jgs',
+						  		startColumn: 18,
+						  		endColumn: 23,
+								complete: function (options) {
+									var series = options.series;
+									series[4].lineWidth = '3';
+								}
+							}
+					},
+						  							  
+					function(chart) {
+				});
+			});
+    
+		</script>
+
+		<!-- CHART 5 -->  	    
+
+		<script type="text/javascript">        
+		  		$(function() {
+		  		  	Highcharts.setOptions({
+		  			  	chart: {
+		  				  	style: {
+		  					  	fontFamily: 'PT Sans'
+		  				  	}
+		  			  	}
+		  		  	});
+				
+				$('#container5').highcharts({
+					chart: {
+						backgroundColor: 'transparent',
+						type: 'line',
+						zoomType: 'x,y'
+					},
+					 
+					title: {
+						text: 'Cumulative new CCS capacity',
+						align: 'left'
+					},
+					  
+					navigation: {
+					            buttonOptions: {
+								enabled: false
+								}
+					},
+
+					credits: {
+							enabled: false
+					},
+					
+					plotOptions: {
+								series: {
+									states: {
+										hover: {
+											lineWidth: 3.5
+										}
+									}
+								},
+								  
+								line: {
+									width: 0,
+									symbol: 'circle',
+									marker: {
+										enabled: false,
+										radius: 3
+									}
+								},
+					},
+							  
+					yAxis: {
+							tickInterval: 25,
+							max: 50,
+							minorTickInterval: 5,
+							minorGridLineWidth: 0.6,
+							gridLineWidth: 1.2,
+							//min: 3000,
+						  	
+								labels: {
+										style: {
+											fontSize: '12px'
+										},
+										format: '{value:,.0f} GW'
+								},
+								
+								title: {
+										text: ''
+								}
+					},
+
+					xAxis: {
+						crosshair: {
+						        color: '#E5E5E5'
+						},
+						labels: {
+							style: {
+								fontSize: '12px'
+							}
+						}
+					},
+
+					tooltip: {
+						formatter: function() {
+							var s = '<b>Forecast by ' + this.x + '</b>';
+							$.each(this.points, function () {
+								s += '<br/><span style="color:' + this.point.color + '">\u25CF</span> ' + this.series.name + ': ' + Highcharts.numberFormat(this.y,0) + ' GW';
+							});
+							return s;
+						},
+						shared: true
+									  },
+						legend: {
+								enabled: true,
+								layout: 'horizontal',
+								floating: false,
+								verticalAlign: 'top',
+								//y: 40,
+								//x: 15,
+						},
+								 
+						data: {
+						  	googleSpreadsheetKey: '1wtGOlkpdBKPkbdnSbYGE3U-0yQpQC6yFwk4yYuu6jgs',
+						  	startColumn: 24,
+						  	endColumn: 29,
+									complete: function (options) {
+										var series = options.series;
+										series[4].lineWidth = '3';
+									}
+						}
+				},
+				function(chart) {
+				});
+			});
+    
+		</script>
+
+		<!-- CHART 6 -->
+		  	    
+		<script type="text/javascript">        
+		  		$(function() {
+		  		  	Highcharts.setOptions({
+		  			  	chart: {
+		  				  	style: {
+		  					  	fontFamily: 'PT Sans'
+		  				  	}
+		  			  	}
+		  		  	});
+				 
+				$('#container6').highcharts({
+					  	chart: {
+						  	backgroundColor: 'transparent',
+						  	type: 'line',
+						  	zoomType: 'x,y'
+					  	},
+					  
+					  	title: {
+						  	text: 'Cumulative new storage capacity',
+						  	align: 'left'
+					  	},
+					  
+					  	navigation: {
+					            buttonOptions: {
+					                enabled: false
+					            }
+					    },
+
+						credits: {
+								  enabled: false
+						},
+					
+						plotOptions: {
+								series: {
+									states: {
+										hover: {
+											lineWidth: 3.5
+										}
+									}
+								},
+								  
+								line: {
+									width: 0,
+									symbol: 'circle',
+									marker: {
+										enabled: false,
+										radius: 3
+									}
+								},
+						},
+							  
+						yAxis: {
+							tickInterval: 25,
+							max: 50,
+							minorTickInterval: 5,
+							minorGridLineWidth: 0.6,
+							gridLineWidth: 1.2,
+						  	
+							labels: {
+								style: {
+									fontSize: '12px'
+								},
+								format: '{value:,.0f} GW'
+								},
+								title: {
+									text: ''
+								}
+						},
+
+						xAxis: {
+							crosshair: {
+						        color: '#E5E5E5'
+							},
+							labels: {
+								style: {
+									fontSize: '12px'
+								}
+							}
+						},
+
+						tooltip: {
+							formatter: function() {
+									var s = '<b>Forecast by ' + this.x + '</b>';
+									$.each(this.points, function () {
+										s += '<br/><span style="color:' + this.point.color + '">\u25CF</span> ' + this.series.name + ': ' + Highcharts.numberFormat(this.y,0) + ' GW';
+									});
+									return s;
+							},
+							shared: true
+						},
+								  
+						legend: {
+							enabled: true,
+							layout: 'horizontal',
+							floating: false,
+							verticalAlign: 'top',
+							//y: 40,
+							//x: 15,
+						},
+								  
+						data: {
+						  	googleSpreadsheetKey: '1wtGOlkpdBKPkbdnSbYGE3U-0yQpQC6yFwk4yYuu6jgs',
+						  	startColumn: 30,
+						  	endColumn: 35,
+							complete: function (options) {
+								var series = options.series;
+								series[4].lineWidth = '3';
+							}
+						}
+				},
+				function(chart) {
+				});
+			});
+    
+		    </script>	
+		        <!-- // these tags close all the sections of the document that haven't yet been closed -->
+	</body>
+</html>
