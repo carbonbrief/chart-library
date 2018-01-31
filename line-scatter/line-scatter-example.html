@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+  <head>
+
+    <!-- important to include so that the browser knows how to render special characters -->
+    <meta charset="utf-8">
+    <!-- change the description and title for your chart. These parts are helpful for search engines and screen readers -->
+    <meta name="description" content="Line scatter chart example">
+    <title>Line scatter chart example | Carbon Brief</title>
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  
+    <style>
+      /* CSS that controls the style of the chart */
+      /* you can set dimemsions for the chart here by changing the max-width and height of "container". This is probably the only part of the <style> section that you'll need to change. */
+      #container {max-width: 800px; height: 600px;}
+      #logocontainer{ max-width: 800px; height: 26px;}
+      #logo {position: absolute; right:10px;}
+      @media screen and (min-width: 830px) { #logo {left: 778px;}}
+    </style>
+
+  </head>
+
+  <body>
+    <!-- this part describes the basic structure of the website you'll be creating. It's written in HTML -->  
+    <div id="container"></div>
+    <div id="logocontainer">
+      <img id="logo" src="https://s3-eu-west-1.amazonaws.com/cbhighcharts/CB-logo-for-highcharts.png">
+    </div>
+
+    <script type="text/javascript">
+
+      // this section in the script tags is where everything that controls and draws the map goes. It's written in Javascript
+      $(function() {
+        Highcharts.setOptions({
+
+          lang: {
+            // tells highcharts that thousands are to be separated by a comma, when separation is specified
+            thousandsSep: ','
+          },
+          chart: {
+            style: {
+              // set the font family for the chart. We use PT Sans to contrast with PT Serif which is the CB body text. Sans fonts are also easier to read at small point sizes.
+              fontFamily: 'PT Sans'
+            }
+          }
+        });
+
+    // create the chart
+    $('#container').highcharts({
+
+          // here is the CB colour scheme, for basic charts with distinct series. note that you need to use the american spelling of colour for HTML CSS and Javascript.
+          // dark blue - 0b4572
+          // yellow - EFC530
+          // light blue - 2f8fce
+          // red - C7432B
+          // light grey - 999999
+          // lilac - A14A7B
+          // orange - DF9239
+          // if you need more colours or need to use a colour scale, see the design style guide for more information about chart colours and gradients: https://docs.google.com/document/d/1-xJ2Jt2uy-fNIMTchpeamnXzvZLPczwpn4pW5TyFAFQ/edit#heading=h.gvujm268l3zd
+
+          colors: ['#0b4572', '#EFC530', '#2f8fce', '#C7432B', '#A14A7B', '#999999'],
+          chart: {
+            // specifies which div (box) the chart is rendering to, in this case the div with the id container. If you do more than one chart you'll need to create and extra div and change the name here.
+            renderTo: 'container',
+            backgroundColor: 'transparent',
+            // creates line chart
+            type: 'line',
+            // allows the user to zoom in to the chart on the x and y axis
+            // you can set to allow x zoom or y zoom only
+            zoomType: 'x,y'
+          },
+          title: {
+            // change for your chart
+            text: 'Monthly global temperatures, January 2012 - October 2017',
+            align: 'left'
+          },
+          navigation: {
+            buttonOptions: {
+              // removes the hamburger menu. set to 'true' in order to be able to download an svg
+              enabled: false
+            }
+          },
+          credits: {
+            // removes the highcharts logo
+            enabled: false
+          },
+          plotOptions: {
+            line: {
+              lineWidth: 2,
+              symbol: 'circle',
+              marker: {
+                // change to 'true' if you want your line to have markers (with no quotation marks since it's a boolean value)
+                enabled: false,
+                radius: 3
+              }
+            }
+          },
+
+        // options for the y axis
+      yAxis: {
+      reversedStacks: false,
+      min: -2,
+      max: 2,
+      labels: {
+          style: {
+            fontSize: '12px'
+            },
+            // sets the format of the y axis text, in this case to one decimal place plus 'C'. See here for more examples: https://www.highcharts.com/docs/chart-concepts/labels-and-string-formatting
+          format: '{value:,.1f}C'
+          },
+          title: {
+          // add text if your y axis needs a label
+            text: ''
+          },
+      },
+      xAxis: {
+        crosshair: {
+        //  crosshairs are pairs of perpendicular lines on a graph that move when the mouse moves. In this case we're only setting on on the x axis so there will only be a vertical lines
+          color: '#E5E5E5'
+        },
+        labels: {
+          style: {
+            fontSize: '12px'
+          }
+        }
+      },
+
+      tooltip: {
+        formatter: function() {
+          return '<b>' + this.x + '</b><br/>' + this.series.name + ': <b>' + this.y + 'C</b>';
+        }
+      },
+         
+      legend: {
+        // set to false if you want to turn the legend off
+        enabled: true,
+        padding: 20,
+        // set the layout of the legend
+
+        layout: 'horizontal',
+        floating: false,
+        verticalAlign: 'top',
+        // you can fine-tune the legend position here
+        y: 20,
+      },
+      
+      data: {
+        startColumn: 0,
+        endColumn: 4,
+          seriesMapping: [{
+            x: 0,
+            y: 1
+          },{
+            x: 0,
+            y: 2
+          },{
+            x: 0,
+            y: 3
+          },{
+            x: 0,
+            y: 4
+          }],
+      // change to your spreadsheet
+      // to do this you have to publish the spreadsheet to the web
+      // then grab the code from the url
+      // for example here, the bit after "d/" and before the final "/"
+      // https://docs.google.com/spreadsheets/d/1NAzRluJxGjyrJqsI6kjtSYxcPXTIL-lQZ6chFDcx2XI/
+      googleSpreadsheetKey: '193rZo8J4gntosPk_qMNq9Mq230UvWwd0RMOwHJ4betw',
+    },
+        
+      series: [{
+        type: 'scatter',
+        color: 'black',
+        marker: {
+          enabled: true,
+          radius: 2
+        },
+      },{
+        type: 'line',
+        color: '#999999',
+        lineWidth: 4,
+        zIndex: 1,
+      },{
+        type: 'line',
+        color: '#C7432B',
+        lineWidth: 3,
+      },{
+        type: 'line',
+        color: '#2f8fce',
+        lineWidth: 3,
+      }]
+    },
+      function(chart) { // on complete
+    });
+  });
+
+    // these tags close all the sections of the document that haven't yet been closed
+    </script>
+  </body>
+</html>
