@@ -1,0 +1,193 @@
+<!DOCTYPE html> 
+	<head>
+
+		<!-- important to include so that the browser knows how to render special characters -->
+		<meta charset="utf-8">
+		<!-- change the description and title for your chart. These parts are helpful for search engines and screen readers. the description appears below the link in search engines -->
+		<meta name="description" content="Scatter and column chart example">
+		<title>Scatter and column chart example | Carbon Brief</title>
+		<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/modules/data.js"></script>
+		<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+		<style>
+			#container {max-width: 800px;}
+			#logocontainer{ max-width: 800px; height: 26px;}
+			#logo {position: absolute; right:10px;}
+			@media screen and (min-width: 830px) { #logo { left: 778px; } }	
+		</style>
+
+	</head>
+
+	<body>
+		<!-- you can set minimum dimensions for the chart here -->
+		<!-- for example swap the <div below for this version -->
+		<!-- <div id="container" style="min-width: 310px; max-width: 600px; height: 400px; margin: 0 auto"></div> -->
+		
+			<div id="container"></div>
+		<div id="logocontainer">
+			<img id="logo" src="https://s3-eu-west-1.amazonaws.com/cbhighcharts/CB-logo-for-highcharts.png">
+		</div>
+		<script type="text/javascript">        
+			$(function() {
+				Highcharts.setOptions({
+
+					// here is the CB colour scheme
+					// dark blue - 0b4572
+					// yellow - EFC530
+					// light blue - 2f8fce
+					// red - C7432B
+					// light grey - 999999
+					// lilac - A14A7B
+					// orange - DF9239
+					// you can make your own gradient custom here:
+					// http://www.strangeplanet.fr/work/gradient-generator/?c=9:FFFFFF:000000
+
+					colors: ['#0b4572', '#A14A7B', '#2f8fce', '#C7432B', '#999999', '#DF9239', '#A14A7B'],
+					
+					chart: {
+						// set the font family for the chart. We use PT Sans to contrast with PT Serif which is the CB body text. Sans fonts are also easier to read at small point sizes.
+						style: {
+							fontFamily: '"PT Sans", Arial, sans-serif'
+						}
+					}
+				});
+
+				// Create the chart
+				$('#container').highcharts({
+					chart: {
+						renderTo: 'container',
+						backgroundColor: 'transparent',
+						type: 'column',
+						// allows the user to zoom in to the chart on the x and y axis. you can set to allow x zoom or y zoom only
+						zoomType: 'x,y'
+					},
+					// add your title here
+					title: {
+						text: 'Fugitive methane emissions from coal production',
+						align: 'left'
+					},
+					navigation: {
+						buttonOptions: {
+								// removes the hamburger menu. set to 'true' in order to be able to download an svg
+								enabled: false
+						}
+					},
+					// turns off the highcharts credit
+					credits: {
+						enabled: false
+					},
+
+					plotOptions: {
+						column: {
+							// if you don't want stacked columns, delete the 'stacking' section
+							stacking: 'normal',
+							negativeColor: '#0b4572',
+							pointPadding: 0,
+							groupPadding: 0
+						},
+						line:{
+							lineWidth: 0
+						}
+					},
+
+					// options for the y axis
+					yAxis: [{
+						// controls the order of series in chart
+						reversedStacks: false,
+						labels: {
+							style: {
+								fontSize: '12px',
+								color: '#0b4572'
+							},
+							// adds the suffix "Mt" to the values on the y axis
+							format: '{value} Mt'
+						},
+						// sets the title of the y axis
+						title: {
+							text: ''
+						}
+					},
+					// controls the second y-axis
+					{
+						labels: {
+							style: {
+								fontSize: '12px',
+								color: '#A14A7B'
+							},
+							// adds suffix to the values on the y axis
+							format: '{value} %'
+						},
+						// set the title of the y axis
+						title: {
+							text: ''
+						},
+						opposite: true
+					}],
+
+					// sets options for the x axis
+					xAxis: {
+						type: 'category',
+						labels: {
+							rotation: -90,
+							style: {
+								fontSize: '12px'
+							}
+						}
+					},
+					// sets options for the tooltip
+					tooltip: {
+						// change to your units
+						valueSuffix: ' Mt',
+						// defines what's in the tooltip and in what format. <br> is html for a line break and, unusually, doesn't require a closing tag. <b> indicates that the text will be bold and requires a closing tag (</b>)
+						pointFormat: '{series.name}: <br/> <b>{point.y}</b><br/>',
+						shared: true
+					},
+
+					// sets options for the legend
+					legend: {
+						// turn the legend on or off
+						enabled: true,
+						padding: 30,
+						layout: 'horizontal',
+						floating: false,
+						verticalAlign: 'top',
+						align: 'center',
+						// you can fine-tune the legend position here
+						y: 20,
+					},
+
+					// pull the data from a google spreadsheet
+					// you have to publish the spreadsheet to the web
+					// then grab the code from the url
+					// for example here, the bit after "d/" and before the final "/"
+					// https://docs.google.com/spreadsheets/d/1NAzRluJxGjyrJqsI6kjtSYxcPXTIL-lQZ6chFDcx2XI/
+
+					data: {
+						googleSpreadsheetKey: '1LfbNS53qfwJ9zOs4XAQmi1-6QD_P21dDmP1TW_QfM7Y',
+						complete: function (options) {
+							var series = options.series;
+							// controls the type of your different series
+							series[1].type = 'line';
+							series[1].yAxis = 1;
+							series[1].tooltip = {
+								valueSuffix: ' %'
+							}
+						}
+					}
+				},
+
+				function(chart) { // on complete
+					chart.renderer.image()
+						.add();
+
+				});
+
+
+			});
+			
+		// these tags close all the sections of the document that haven't yet been closed
+		</script>
+	</body>
+</html>
