@@ -68,7 +68,59 @@
 		<img id="logo" src="https://s3-eu-west-1.amazonaws.com/cbhighcharts/CB-logo-for-highcharts.png">
 	</div>
 
-    <script type="text/javascript">        
+    <script type="text/javascript"> 
+    $('#container').bind('mousemove touchmove touchstart', function(e) {
+  var chart,
+    point,
+    i,
+    event;
+
+  for (i = 0; i < Highcharts.charts.length; i = i + 1) {
+    chart = Highcharts.charts[i];
+    event = chart.pointer.normalize(e.originalEvent); // Find coordinates within the chart
+    point = chart.series[0].searchPoint(event, true); // Get the hovered point
+
+    if (point) {
+      point.highlight(e);
+    }
+  }
+});
+/**
+ * Override the reset function, we don't need to hide the tooltips and crosshairs.
+ */
+Highcharts.Pointer.prototype.reset = function() {
+  return undefined;
+};
+
+/**
+ * Highlight a point by showing tooltip, setting hover state and draw crosshair
+ */
+Highcharts.Point.prototype.highlight = function(event) {
+  this.onMouseOver(); // Show the hover marker
+  this.series.chart.tooltip.refresh(this); // Show the tooltip
+  this.series.chart.xAxis[0].drawCrosshair(event, this); // Show the crosshair
+};
+
+/**
+ * Synchronize zooming through the setExtremes event handler.
+ */
+var charts;
+
+function syncExtremes(e) {
+  var thisChart = this.chart;
+
+  if (e.trigger !== 'syncExtremes') { // Prevent feedback loop
+    Highcharts.each(Highcharts.charts, function(chart) {
+      if (chart !== thisChart) {
+        if (chart.xAxis[0].setExtremes) { // It is null while updating
+          chart.xAxis[0].setExtremes(e.min, e.max, undefined, false, {
+            trigger: 'syncExtremes'
+          });
+        }
+      }
+    });
+  }
+}       
 	$(function() {
 	  Highcharts.setOptions({
 
@@ -157,6 +209,9 @@
 				  xAxis: {
 					  crosshair: {
 						  color: '#E5E5E5'
+					  },
+					  events:{
+					  	setExtremes: syncExtremes
 					  },
 					  labels: {
 						  style: {
@@ -274,16 +329,25 @@
 							  }
 						  },
 
-						  tooltip: {
-							  formatter: function() {
-								  var s = '<b>Forecast by ' + this.x + '</b>';
-								  $.each(this.points, function () {
-									  s += '<br/><span style="color:' + this.point.color + '">\u25CF</span> ' + this.series.name + ': ' + Highcharts.numberFormat(this.y,0) + ' GW';
-									  });
-									  return s;
-								  },
-								  shared: true
-							  },
+						   tooltip: {
+          positioner: function(labelWidth, labelHeight, point) {
+
+
+            var tooltipX, tooltipY;
+
+            if (point.plotX > 340) {
+              tooltipX = point.plotX + this.chart.plotLeft - 150;
+            } else {
+              tooltipX = point.plotX + this.chart.plotLeft + 20;
+            }
+            tooltipY = point.plotY + this.chart.plotTop - 20;
+            console.log(tooltipX);
+            return {
+              x: tooltipX,
+              y: tooltipY
+            };
+          }
+        }
 							  legend: {
 								  enabled: true,
 								  layout: 'horizontal',
