@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-
+<html lang="en">
   <head>
-
-    <!-- important to include so that the browser knows how to render special characters -->
     <meta charset="utf-8">
-    <!-- change the description and title for your chart. These parts are helpful for search engines and screen readers -->
+    <!-- change the description and title for your chart-->
     <meta name="description" content="Line chart example">
     <title>Line chart example | Carbon Brief</title>
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
@@ -14,10 +12,10 @@
   
     <style>
       /* CSS that controls the style of the chart */
-      /* you can set dimemsions for the chart here by changing the max-width and height of "container". This is probably the only part of the <style> section that you'll need to change. */
-      #container {max-width: 800px; height: 600px;}
-      #logocontainer{ max-width: 800px; height: 26px;}
-      #logo {position: absolute; right:10px;}
+      /* you can set dimemsions for the chart here by changing the max-width and height of "container"*/
+      #container {max-width: 800px; height: 500px;}
+      #logocontainer{ max-width: 800px; height: 22px;}
+      #logo {width: 22px; height: 22px; position: absolute; right:10px; background: url(https://s3.eu-west-2.amazonaws.com/cbhighcharts2019/cb-logo-highcharts.svg); background-repeat: no-repeat; background-size: contain; }
       #mobile-image {display: none; width: 100%; height: 400px; image-rendering: crisp-edges;}
       #mobile-image img { max-width:100%; height:auto;}
 
@@ -33,13 +31,14 @@
     <!-- this part describes the basic structure of the website you'll be creating. It's written in HTML -->  
     <div id="container"></div>
     <div id="mobile-image">
-      <!-- This image will display instead of the interactive chart on a mobile screen, so change this to the name of the screenshot that you've taken (don't include the logo in the screenshot or it will be included twice). 
-        Please upload this screenshot to the WordPress media library and get the link from there, to avoid clogging up AWS with large files. Tom H will need to add one anyway for the AMP version-->
-      <!-- You may wish to include this because a) the interactivity is hard to use on a mobile anyway and b) although the chart scales well for medium screens it doesn't scale well on a mobile -->
+      <!-- This image will display instead of the interactive chart on a mobile screen, so change this to the name of the screenshot that you've taken
+        Don't include the logo in the screenshot or it will be included twice 
+        Please upload this screenshot to the WordPress media library and get the link from there, to avoid clogging up AWS with large files. Tom H will need to add one anyway for the AMP version
+        You may wish to include this because a) the interactivity is hard to use on a mobile anyway and b) although the chart scales well for medium screens it doesn't scale well on a mobile -->
       <img src="https://www.carbonbrief.org/wp-content/uploads/2018/01/Screen-Shot-2018-01-29-at-15.38.15.png"/>
     </div>
     <div id="logocontainer">
-      <img id="logo" src="https://s3-eu-west-1.amazonaws.com/cbhighcharts/CB-logo-for-highcharts.png">
+      <div id="logo">
     </div>
 
     <script type="text/javascript">
@@ -49,12 +48,12 @@
         Highcharts.setOptions({
 
           lang: {
-            // tells highcharts that thousands are to be separated by a comma, when separation is specified
+            // tells highcharts that thousands are to be separated by a comma
             thousandsSep: ','
           },
           chart: {
             style: {
-              // set the font family for the chart. We use PT Sans to contrast with PT Serif which is the CB body text. Sans fonts are also easier to read at small point sizes.
+              // set the font family for the chart. We use PT Sans to contrast with PT Serif which is the CB body text
               fontFamily: 'PT Sans'
             }
           }
@@ -63,7 +62,7 @@
         // create the chart
         $('#container').highcharts({
 
-          // here is the CB colour scheme, for basic charts with distinct series. note that you need to use the american spelling of colour for HTML CSS and Javascript.
+          // here is the CB colour scheme:
           // dark blue - 0b4572
           // yellow - EFC530
           // light blue - 2f8fce
@@ -71,7 +70,7 @@
           // light grey - 999999
           // lilac - A14A7B
           // orange - DF9239
-          // if you need more colours or need to use a colour scale, see the design style guide for more information about chart colours and gradients: https://docs.google.com/document/d/1-xJ2Jt2uy-fNIMTchpeamnXzvZLPczwpn4pW5TyFAFQ/edit#heading=h.gvujm268l3zd
+          // if you need more colours or need to use a colour scale, see the design style guide for more info: https://docs.google.com/document/d/1-xJ2Jt2uy-fNIMTchpeamnXzvZLPczwpn4pW5TyFAFQ/edit#heading=h.gvujm268l3zd
 
           colors: ['#0b4572', '#EFC530', '#2f8fce', '#C7432B', '#A14A7B', '#999999'],
           chart: {
@@ -114,16 +113,11 @@
           // options for the y axis
           yAxis: {
             reversedStacks: false,
-          //Set hard low and high y-axis numbers
-            //min: 0,
-            //max: 1.1,
-            //Set a tickInterval to determine the increments of y-axis
-            //tickInterval: 0.1,
             labels: {
               style: {
                 fontSize: '12px'
               },
-              // sets the format of the y axis text, in this case to one decimal place plus 'C'. See here for more examples: https://www.highcharts.com/docs/chart-concepts/labels-and-string-formatting
+              // sets the format of the y axis text, in this case to one decimal place plus 'C'. See here for examples: https://www.highcharts.com/docs/chart-concepts/labels-and-string-formatting
               format: '{value:,.1f}C'
             },
             title: {
@@ -156,19 +150,15 @@
           legend: {
             // set to false if you want to turn the legend off
             enabled: true,
-            padding: 20,
             layout: 'horizontal',
             floating: false,
             verticalAlign: 'top',
-            // you can fine-tune the legend position here
-            //y: 20
           },
           data: {
             // change to your spreadsheet
             // to do this you have to publish the spreadsheet to the web
-            // then grab the code from the url
-            // for example here, the bit after "d/" and before the final "/"
-            // https://docs.google.com/spreadsheets/d/1NAzRluJxGjyrJqsI6kjtSYxcPXTIL-lQZ6chFDcx2XI/
+            // then grab the code from the url, the bit after "d/" and before the final "/"
+            // eg. https://docs.google.com/spreadsheets/d/1NAzRluJxGjyrJqsI6kjtSYxcPXTIL-lQZ6chFDcx2XI/
             googleSpreadsheetKey: '1tHXWFaPtoSFpkZU6lJSTM2kosJx6H1pwf_jNMiSWE3Q',
           }
         },
@@ -176,8 +166,6 @@
         });
       });
     
-
-    // these tags close all the sections of the document that haven't yet been closed
     </script>
   </body>
 </html>
