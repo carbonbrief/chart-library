@@ -1,7 +1,7 @@
-<!DOCTYPE html>  
+<!DOCTYPE html> 
+<html lang="en"> 
     <head>
         <meta charset="utf-8">
-        <!-- important to include so that the browser knows how to render special characters -->
 		<title>Graphs: BEIS projections new capacity compared | Carbon Brief</title>
         <!-- change the description and title for your chart. These parts are helpful for search engines and screen readers -->
         <meta name="description" content="Example maps of Europe">
@@ -17,8 +17,8 @@
         /* you can set dimemsions for the chart here by changing the height of ".container". This is probably the only part of the <style> section that you'll need to change. */
 		#wrapper { padding: 10px; display: inline-block; width: 100%; }
 		.container { float: left; position: relative; width: 50%; padding-bottom: 2%; height: 270px; max-width: 660px;}
-		#logocontainer{ height: 26px; display: inline-block; width:100%;}
-		#logo {position: absolute; right:10px;}
+		#logocontainer{ height: 22px; display: inline-block; width:100%;}
+		#logo {width: 22px; height: 22px; position: absolute; right:10px; background: url(https://s3.eu-west-2.amazonaws.com/cbhighcharts2019/cb-logo-highcharts.svg); background-repeat: no-repeat; background-size: contain; }
 	
 		@media only screen and (max-width : 660px) {
 	   		/* Smartphone view: 1 tile */
@@ -44,7 +44,7 @@
 		<div id="container6" class="container" ></div>
 	</div>
 	<div id="logocontainer">
-		<img id="logo" src="https://s3-eu-west-1.amazonaws.com/cbhighcharts/CB-logo-for-highcharts.png">
+		<div id="logo">
 	</div>
 
     <script type="text/javascript">        

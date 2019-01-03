@@ -1,12 +1,11 @@
 <!DOCTYPE html>  
+<html lang="en"> 
     <head>
-        <!-- important to include so that the browser knows how to render special characters -->
         <meta charset="utf-8">
-        <!-- change the description and title for your chart. These parts are helpful for search engines and screen readers -->
+        <!-- change the description and title for your chart. -->
         <meta name="description" content="Europe map example">
         <title>Europe map example image | Carbon Brief</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<!-- Tells browsers not to scale by default so media queries can be applied -->
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <script src="https://code.highcharts.com/maps/highmaps.js"></script>
         <script src="https://code.highcharts.com/maps/modules/data.js"></script>
@@ -17,8 +16,8 @@
             /* you can set dimemsions for the chart here by changing the max-width and height of "container". This is probably the only part of the <style> section that you'll need to change. */
             #container { height: 700px; min-width: 310px; max-width: 800px; }
             .loading { margin-top: 10em;text-align: center; color: gray; }
-            #logocontainer{ max-width: 800px; height: 26px; }
-            #logo { position: absolute; right:10px; }
+            #logocontainer{ max-width: 800px; height: 22px; }
+            #logo {width: 22px; height: 22px; position: absolute; right:10px; background: url(https://s3.eu-west-2.amazonaws.com/cbhighcharts2019/cb-logo-highcharts.svg); background-repeat: no-repeat; background-size: contain; }
             #mobile-image {display: none; width: 100%; height: 400px; image-rendering: crisp-edges;}
             #mobile-image img { max-width:100%; height:auto;}
             
@@ -40,11 +39,10 @@
         </div>
         <div id="mobile-image">
             <!-- This image will display instead of the interactive chart on a mobile screen, so change this the name of the screenshot that you've taken of your chart (don't include the logo in the screenshot or it will be included twice). Make sure that you include you image of the chart in the same AWS folder as the file. -->
-            <!-- We've decided to switch to using images of the chart on a mobile since a) the interactivity is hard to use on a mobile anyway and b) although the chart scales well for medium screens it doesn't scale well on a mobile -->
             <img src="https://www.carbonbrief.org/wp-content/uploads/2018/01/europe-map-example.png"/>
         </div>
         <div id="logocontainer">
-            <img id="logo" src="https://s3-eu-west-1.amazonaws.com/cbhighcharts/CB-logo-for-highcharts.png">
+            <div id="logo">
         </div>
         
         <script type="text/javascript">

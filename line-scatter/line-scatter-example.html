@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-
+<html lang="en">
   <head>
-
-    <!-- important to include so that the browser knows how to render special characters -->
     <meta charset="utf-8">
-    <!-- change the description and title for your chart. These parts are helpful for search engines and screen readers -->
+    <!-- change the description and title for your chart.-->
     <meta name="description" content="Line scatter chart example">
     <title>Line scatter chart example | Carbon Brief</title>
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
@@ -16,8 +14,8 @@
       /* CSS that controls the style of the chart */
       /* you can set dimemsions for the chart here by changing the max-width and height of "container". This is probably the only part of the <style> section that you'll need to change. */
       #container {max-width: 800px; height: 600px;}
-      #logocontainer{ max-width: 800px; height: 26px;}
-      #logo {position: absolute; right:10px;}
+      #logocontainer{ max-width: 800px; height: 22px;}
+      #logo {width: 22px; height: 22px; position: absolute; right:10px; background: url(https://s3.eu-west-2.amazonaws.com/cbhighcharts2019/cb-logo-highcharts.svg); background-repeat: no-repeat; background-size: contain; }
       @media screen and (min-width: 830px) { #logo {left: 778px;}}
     </style>
 
@@ -27,7 +25,7 @@
     <!-- this part describes the basic structure of the website you'll be creating. It's written in HTML -->  
     <div id="container"></div>
     <div id="logocontainer">
-      <img id="logo" src="https://s3-eu-west-1.amazonaws.com/cbhighcharts/CB-logo-for-highcharts.png">
+      <div id="logo">
     </div>
 
     <script type="text/javascript">
@@ -137,7 +135,6 @@
       legend: {
         // set to false if you want to turn the legend off
         enabled: true,
-        padding: 20,
         // set the layout of the legend
 
         layout: 'horizontal',
