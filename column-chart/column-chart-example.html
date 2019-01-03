@@ -1,8 +1,8 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
+<html lang="en">
 	<head>
-		<!-- important to include so that the browser knows how to render special characters --><!-- important to include so that the browser knows how to render special characters -->
 		<meta charset="utf-8">
-		<!-- change the description and title for your chart. These parts are helpful for search engines and screen readers. the description appears below the link in search engines -->
+		<!-- change the description and title for your chart. These parts are helpful for search engines and screen readers. -->
 		<meta name="description" content="Column chart example">
 		<title>Column chart example | Carbon Brief</title>
 		<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
@@ -11,25 +11,25 @@
 		<script src="https://code.highcharts.com/modules/exporting.js"></script>
 		<style>
 			/* CSS that controls the style of the chart */
-			/* you can set dimemsions for the chart here by changing the max-width and height of "container". This is probably the only part of the <style> section that you'll need to change. */
+			/* you can set dimemsions for the chart here by changing the max-width and height of "container".*/
 			#container {max-width: 800px; height: 450px;}
-			#logocontainer{ max-width: 800px; height: 26px;}
-			#logo {position: absolute; right:10px;}
+			#logocontainer{ max-width: 800px; height: 22px;}
+			#logo {width: 22px; height: 22px; position: absolute; right:10px; background: url(https://s3.eu-west-2.amazonaws.com/cbhighcharts2019/cb-logo-highcharts.svg); background-repeat: no-repeat; background-size: contain; }
 			@media screen and (min-width: 830px) {	#logo {left: 778px;}}		
 		</style>
 	</head>
 	<body>
-	<!-- this part describes the basic structure of the website you'll be creating. It's written in HTML -->
+		<!-- this part describes the basic structure of the website you'll be creating. It's written in HTML -->
 		<div id="container"></div>
 		<div id="logocontainer">
-			<img id="logo" src="https://s3-eu-west-1.amazonaws.com/cbhighcharts/CB-logo-for-highcharts.png">
+			<div id="logo">
 		</div>
 		<script type="text/javascript">
 			// this section in the script tags is where everything that controls and draws the map goes. It's written in Javascript
-	$(function() {
+			$(function() {
 				Highcharts.setOptions({
 
-					// here is the CB colour scheme, for basic charts with distinct series. note that you need to use the american spelling of colour for HTML, CSS and Javascript.
+					// here is the CB colour scheme:
 					// dark blue - 0b4572
 					// yellow - EFC530
 					// light blue - 2f8fce
@@ -37,7 +37,7 @@
 					// light grey - 999999
 					// lilac - A14A7B
 					// orange - DF9239
-					// if you need more colours or need to use a colour scale, see the design style guide for more information about chart colours and gradients: https://docs.google.com/document/d/1-xJ2Jt2uy-fNIMTchpeamnXzvZLPczwpn4pW5TyFAFQ/edit#heading=h.gvujm268l3zd
+					// if you need more colours or need to use a colour scale, see the design style guide for more info: https://docs.google.com/document/d/1-xJ2Jt2uy-fNIMTchpeamnXzvZLPczwpn4pW5TyFAFQ/edit#heading=h.gvujm268l3zd
 					colors: ['#0b4572', '#C7432B', '#2f8fce', '#EFC530', '#DF9239', '#999999', '#A14A7B'],
 					
 					chart: {
@@ -52,134 +52,100 @@
 					}
 				});
 				// create the chart
-	  			$('#container').highcharts({
-	      			chart: {
-	        			renderTo: 'container',
-	        			backgroundColor: 'transparent',
-	        			type: 'column',
+				$('#container').highcharts({
+					chart: {
+						renderTo: 'container',
+						backgroundColor: 'transparent',
+						type: 'column',
 						// marginBottom sets the amount of space beneath x axis, adjust in order to accommodate the groups names as best possible, in this case 140
 						marginBottom: 140,
-	        			zoomType: 'x,y'
+						zoomType: 'x,y'
 					},
-
-	      			// set the title of the chart
-	      			title: {
-	        			text: "Journals most frequently appearing in the top 25 climate papers",
+					// set the title of the chart
+					title: {
+						text: "Journals most frequently appearing in the top 25 climate papers",
 						align: 'left',
 						// margin here sets amount of white space around the title, top, bottom, left and right sides
 						margin: 30
-	      					},
+					},
 
-		  			// removes the hamburger menu. set to 'true' in order to be able to download an svg
-		  			navigation: {
-		              	buttonOptions: {
-		                  	enabled: false
-		              					}
-		          				},
-
-	      			// turn off the highcharts credit
-	      			credits: {
-	        			enabled: false
-	      					},
-
-	      			// controls how the columns stack
-	      			// options are 'normal' and 'percent'
-		  			// if you don't want stacked columns, delete this section
-	      			plotOptions: {
-  							column: {
-  	          				stacking: 'normal',
-  					//negativeColor: '#C7432B',
-  							pointPadding: 0,
-  							groupPadding: 0.1
-  	        						}
-	      						},
-
-	      			// options for the y axis
-	      			yAxis: {
-					// controls the order of series in a stacked column/area chart
-	        			reversedStacks: false,
+					// removes the hamburger menu. set to 'true' in order to be able to download an svg
+					navigation: {
+						buttonOptions: {
+							enabled: false
+						}
+					},
+					// turn off the highcharts credit
+					credits: {
+						enabled: false
+					},
+					// controls how the columns stack
+					// options are 'normal' and 'percent'
+					// if you don't want stacked columns, delete this section
+					plotOptions: {
+						column: {
+							stacking: 'normal',
+							pointPadding: 0,
+							groupPadding: 0.1
+						}
+					},
+					// options for the y axis
+					yAxis: {
+						// controls the order of series in a stacked column/area chart
+						reversedStacks: false,
 						// fixes the maximum value for the y axis (switch off with "//")
-						//max: 300,
 						max: 4,
-	        			// sets the font size for the y axis labels
-	        				labels: {
-	          					style: {
-	            					fontSize: '12px'
-	          							},
-	          			// adds the suffix "Mt" to the values on the y axis
-	          					format: '{value}'
-	        						},
-	        			// set the title of the y axis
-	        					title: {
-	          						text: 'Frequency'
-	        							}
-	      					},
-
-	      			// sets options for the x axis
-	      			xAxis: {
+						// sets the font size for the y axis labels
+						labels: {
+							style: {
+								fontSize: '12px'
+							},
+							// adds the suffix "Mt" to the values on the y axis
+							format: '{value}'
+						},
+						// set the title of the y axis
+						title: {
+							text: 'Frequency'
+						}
+					},
+					// sets options for the x axis
+					xAxis: {
 						type: 'category',
-							crosshair: {
-								color: '#E5E5E5'
-										},
-							labels: {
-								// rotation sets the labels at an angle, as in the example, in order to make the text more legible
-								rotation: -50,
-									style: {
-										fontSize: '11px'
-											}
-	        						}
-	      					},
-		  		
-		  		tooltip: {
-			  		valueDecimals: 1,
-		           	pointFormat: '<b>{point.y:,.0f}</b><br/>',
-					//crosshairs: 'true'
-		         		},
+						crosshair: {
+							color: '#E5E5E5'
+						},
+						labels: {
+							// rotation sets the labels at an angle, as in the example, in order to make the text more legible
+							rotation: -50,
+							style: {
+								fontSize: '11px'
+							}
+						}
+					},
+					tooltip: {
+						valueDecimals: 1,
+						pointFormat: '<b>{point.y:,.0f}</b><br/>'
+					},
+					legend: {
+						// turn the legend on or off
+						enabled: false,
+						padding: 20,
+						layout: 'horizontal',
+						floating: false,
+						verticalAlign: 'top'
+					},
+					data: {
+						// change to your spreadsheet
+						// first publish the spreadsheet to the web
+						// then grab the code from the url, the bit after "d/" and before the final "/"
+						// eg. https://docs.google.com/spreadsheets/d/1NAzRluJxGjyrJqsI6kjtSYxcPXTIL-lQZ6chFDcx2XI/
+						googleSpreadsheetKey: '13dYLpCTlWeoZVxmFF7M0ZUCdx-p8_b81jiJbRIuPC50'
+					}
+				},
 
-	      		// sets options for the legend
-	      		legend: {
-	        	// turn the legend on or off
-	        		enabled: false,
-			  		padding: 20,
-	        	// set the layout of the legend
-	        		layout: 'horizontal',
-	        		floating: false,
-	        		verticalAlign: 'top',
-	        	// you can fine-tune the legend position here
-	        	// y: 30,
-	         	// x: 15,
-	        	// set the font size of the legend
-				// add "//" to use default settings
-				//itemStyle: {
-				//fontSize: '10px'
-				//	        }
-	      				},
-
-	      		// change to your spreadsheet
-				// to do this you have to publish the spreadsheet to the web
-				// then grab the code from the url
-				// for example here, the bit after "d/" and before the final "/"
-				// https://docs.google.com/spreadsheets/d/1NAzRluJxGjyrJqsI6kjtSYxcPXTIL-lQZ6chFDcx2XI/
-	      	data: {
-	       	 	googleSpreadsheetKey: '13dYLpCTlWeoZVxmFF7M0ZUCdx-p8_b81jiJbRIuPC50'
-	     		 }
-	    },
-
-	    		// add an image on top of the chart
-	    		// you can add anything eg to annotate it
-	    		// here we're using it to add the CB logo
-	    		// the size and position of the logo is controlled by the numbers after the url
-	    		// the first sets the x offset (#pixels from the left)
-	    		// the second sets the y offset (#pixels from the top)
-	    		// the third and fourth set the size in x, y
-
-	    function(chart) { // on complete
-
-	      chart.renderer.image()
-	        .add();
-	    });
-	});
-		// these tags close all the sections of the document that haven't yet been closed
+				function(chart) { // on complete
+				});
+			});
     	</script>
 	</body>
 </html>

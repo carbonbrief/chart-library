@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-	<html lang="en">
+<html lang="en">
 	<head>
 		<meta charset="utf-8">
 		<!-- change the description and title for your chart. -->
@@ -11,7 +11,7 @@
 		<script src="https://code.highcharts.com/modules/exporting.js"></script>
 		<style>
 			/* CSS that controls the style of the chart */
-      /* you can set dimemsions for the chart here by changing the max-width and height of "container". This is probably the only part of the <style> section that you'll need to change. */
+			/* you can set dimemsions for the chart here by changing the max-width and height of "container"*/
 			#container {max-width: 800px; height: 450px;}
 			#logocontainer{ max-width: 800px; height: 22px;}
 			#logo {width: 22px; height: 22px; position: absolute; right:10px; background: url(https://s3.eu-west-2.amazonaws.com/cbhighcharts2019/cb-logo-highcharts.svg); background-repeat: no-repeat; background-size: contain; }
@@ -49,7 +49,7 @@
 					// light grey - 999999
 					// lilac - A14A7B
 					// orange - DF9239
-					// if you need more colours or need to use a colour scale, see the design style guide for more information about chart colours and gradients: https://docs.google.com/document/d/1-xJ2Jt2uy-fNIMTchpeamnXzvZLPczwpn4pW5TyFAFQ/edit#heading=h.gvujm268l3zd
+					// if you need more colours or need to use a colour scale, see the design style guide for more info: https://docs.google.com/document/d/1-xJ2Jt2uy-fNIMTchpeamnXzvZLPczwpn4pW5TyFAFQ/edit#heading=h.gvujm268l3zd
 					colors: ['#0b4572', '#C7432B', '#2f8fce', '#EFC530', '#DF9239', '#999999', '#A14A7B'],
 					
 					chart: {
@@ -108,7 +108,7 @@
 							style: {
 								fontSize: '12px'
 							},
-							// sets the format of the y axis text, in this case to one decimal place plus 'C'. See here for more examples: https://www.highcharts.com/docs/chart-concepts/labels-and-string-formatting
+							// sets the format of the y axis text, in this case to zero decimal places. See here for more examples: https://www.highcharts.com/docs/chart-concepts/labels-and-string-formatting
 							format: '{value:,.0f}'
 						},
 						// set the title of the y axis
@@ -124,11 +124,11 @@
 						crosshair: {
 							color: '#E5E5E5'
 						},
-							labels: {
-								style: {
-									fontSize: '12px'
-								}
+						labels: {
+							style: {
+								fontSize: '12px'
 							}
+						}
 					},
 
 					// sets options for the tooltip
@@ -148,25 +148,20 @@
 						// you can fine-tune the legend position here
 						//y: 40
 					},
-
-					// change to your spreadsheet
-					// to do this you have to publish the spreadsheet to the web
-					// then grab the code from the url
-					// for example here, the bit after "d/" and before the final "/"
-					// https://docs.google.com/spreadsheets/d/1NAzRluJxGjyrJqsI6kjtSYxcPXTIL-lQZ6chFDcx2XI/
 					data: {
+						// change to your spreadsheet
+						// to do this you have to publish the spreadsheet to the web
+						// then grab the code from the url
+						// for example here, the bit after "d/" and before the final "/"
+						// https://docs.google.com/spreadsheets/d/1NAzRluJxGjyrJqsI6kjtSYxcPXTIL-lQZ6chFDcx2XI/
 						googleSpreadsheetKey: '1GDnBn_q9EiZevBXJWNmKmd_Cj_yptTi4JSVFo9jlPAA'
 					}
 				},
 
 				function(chart) { // on complete
-					chart.renderer.image()
-						.add();
 				});
 
 			});
-			
-		// these tags close all the sections of the document that haven't yet been closed
 		</script>
 	</body>
 </html>

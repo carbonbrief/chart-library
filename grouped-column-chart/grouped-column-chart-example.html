@@ -11,7 +11,7 @@
 		<script src="https://code.highcharts.com/modules/exporting.js"></script>
 		<style>
 			/* CSS that controls the style of the chart */
-      /* you can set dimemsions for the chart here by changing the max-width and height of "container". This is probably the only part of the <style> section that you'll need to change. */
+			/* you can set dimemsions for the chart here by changing the max-width and height of "container". This is probably the only part of the <style> section that you'll need to change. */
 			#container {max-width: 800px; height: 450px;}
 			#logocontainer{ max-width: 800px; height: 22px;}
 			#logo {width: 22px; height: 22px; position: absolute; right:10px; background: url(https://s3.eu-west-2.amazonaws.com/cbhighcharts2019/cb-logo-highcharts.svg); background-repeat: no-repeat; background-size: contain; }
@@ -97,7 +97,7 @@
 							style: {
 								fontSize: '12px'
 							},
-							// sets the format of the y axis text, in this case to one decimal place plus 'C'. See here for more examples: https://www.highcharts.com/docs/chart-concepts/labels-and-string-formatting
+							// sets the format of the y axis text, in this case to zero decimal places. See here for more examples: https://www.highcharts.com/docs/chart-concepts/labels-and-string-formatting
 							format: '{value:,.0f}'
 						},
 						// set the title of the y axis
@@ -113,11 +113,11 @@
 						crosshair: {
 							color: '#E5E5E5'
 						},
-							labels: {
-								style: {
-									fontSize: '12px'
-								}
+						labels: {
+							style: {
+								fontSize: '12px'
 							}
+						}
 					},
 
 					// sets options for the tooltip
@@ -129,13 +129,12 @@
 
 					// sets options for the legend
 					legend: {
-						// turn the legend on or off
+						// turn the legend on or off,
 						enabled: true,
 						layout: 'horizontal',
 						floating: false,
 						verticalAlign: 'top',
-						// you can fine-tune the legend position here
-						//y: 40
+						padding: 20
 					},
 
 					// change to your spreadsheet
@@ -149,8 +148,6 @@
 				},
 
 				function(chart) { // on complete
-					chart.renderer.image()
-						.add();
 				});
 
 			});
