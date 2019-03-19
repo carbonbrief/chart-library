@@ -13,8 +13,8 @@
 
 		<style>
       /* CSS that controls the style of the chart */
-      /* you can set dimemsions for the chart here by changing the max-width and height of "container"*/
-      #container {max-width: 800px; height: 500px;}
+       /* you can set dimemsions for the chart here by changing the max-width and height of "container". If you change container width, you need to change logocontainer width beneath too. */
+      #container {max-width: 800px; height: auto;}
       #logocontainer{ max-width: 800px; height: 22px;}
       #logo {width: 22px; height: 22px; margin-top: 2px; margin-bottom: 2px; margin-left: 7px; background: url(https://s3.eu-west-2.amazonaws.com/cbhighcharts2019/cb-logo-highcharts.svg); background-repeat: no-repeat; background-size: contain; }
       .footer{float: right; margin-left: 5px;}
@@ -32,7 +32,7 @@
       .embed-code-container:after {border-color: rgba(136, 183, 213, 0);border-top-color: #f3f3f3;border-width: 3px;margin-left: -3px;}
       .embed-code-container:before {border-color: rgba(194, 225, 245, 0);border-top-color: #f3f3f3;border-width: 12px;margin-left: -12px;}
       .visible {visibility: visible;}
-      #embed-popup {position:absolute; transform: translate(621px, -117px); width: 150px; background-color: white; visibility: hidden; opacity: 0;transition: visibility 0s 2s, opacity 2s linear;}
+      #embed-popup {transform: translate(23%, -120%); float:right; width: 150px; background-color: white; visibility: hidden; opacity: 0;transition: visibility 0s 2s, opacity 2s linear;}
       #embed-popup xmp {font-family: "PT Sans", Arial, sans-serif; font-weight: 500; color: #333333; margin: 2px; padding-left: 5px; padding-top: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
       .embed-code-container {background-color: #f3f3f3; width: 150px; height:80px; padding:1px;}
       button{height:30px;width:40%;border-radius:2px;padding:2px;cursor:pointer;background-color:#f7f7f7;margin:5px; position: fixed}
@@ -47,8 +47,9 @@
     <div id="logocontainer">
       <div id="logo" class="footer"></div>
       <div id="embed" class="footer icon"><i class="fas fa-code"></i></div>
+      <div id="embed-popup"></div>
     </div>
-    <div id="embed-popup"></div>
+    
 
     <script type="text/javascript">        
 			$(function() {
