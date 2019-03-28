@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,51 +10,78 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/data.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
   
     <style>
       /* CSS that controls the style of the chart */
-      /* you can set dimemsions for the chart here by changing the max-width and height of "container"*/
-      #container {max-width: 800px; height: 500px;}
+       /* you can set dimemsions for the chart here by changing the max-width and height of "container". If you change container width, you need to change logocontainer width beneath too. */
+      #container {max-width: 800px; height:550px;}
       #logocontainer{ max-width: 800px; height: 22px;}
-      #logo {width: 22px; height: 22px; position: absolute; right:10px; background: url(https://s3.eu-west-2.amazonaws.com/cbhighcharts2019/cb-logo-highcharts.svg); background-repeat: no-repeat; background-size: contain; }
-      #mobile-image {display: none; width: 100%; height: 400px; image-rendering: crisp-edges;}
-      #mobile-image img { max-width:100%; height:auto;}
-
+      #logo {width: 22px; height: 22px; margin-top: 2px; margin-bottom: 2px; margin-left: 7px; background: url(https://s3.eu-west-2.amazonaws.com/cbhighcharts2019/cb-logo-highcharts.svg); background-repeat: no-repeat; background-size: contain; }
+      .footer{float: right; margin-left: 5px;}
+      .icon{width: 26px; height: 26px; border-radius: 50%; border: 1px solid #dfd5d5;}
+      .icon i {color: #333333; text-align: center;}
+      .icon:hover {background-color: #F3f3f3;}
+      #popup-menu{position: relative; height:40px; width:auto; background-color:#eaeaea;}
+      .fa-code {font-size: 14px; padding-left: 4px; padding-top: 5.5px;}
+      .far{font-size: 16px}
+      i.far.fa-clipboard p{font-family: "PT Sans", Arial, sans-serif; display: inline-block; padding-left: 5px; padding-bottom:2px; margin:0; font-size: 13px;}
+      #close{height: 20px}
+      i.fas.fa-times{float: right;right: 7px;padding-top: 5px; cursor:pointer; position: fixed;}
+      i.fas.fa-times:hover{opacity:0.6;}
+      .embed-code-container:after, .embed-code-container:before {top: 98%;left: 90%;border: solid transparent;content: " ";height: 0;width: 0;position: absolute;pointer-events: none;border: 1px solid #dfd5d5;}
+      .embed-code-container:after {border-color: rgba(136, 183, 213, 0);border-top-color: #f3f3f3;border-width: 3px;margin-left: -3px;}
+      .embed-code-container:before {border-color: rgba(194, 225, 245, 0);border-top-color: #f3f3f3;border-width: 12px;margin-left: -12px;}
+      .visible {visibility: visible;}
+      #embed-popup {transform: translate(23%, -120%); float:right; width: 150px; background-color: white; visibility: hidden; opacity: 0;transition: visibility 0s 2s, opacity 2s linear;}
+      #embed-popup xmp {font-family: "PT Sans", Arial, sans-serif; font-weight: 500; color: #333333; margin: 2px; padding-left: 5px; padding-top: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+      .embed-code-container {background-color: #f3f3f3; width: 150px; height:80px; padding:1px;}
+      button{height:30px;width:40%;border-radius:2px;padding:2px;cursor:pointer;background-color:#f7f7f7;margin:5px; position: fixed}
+      button:hover{background-color:#f3f3f3;}
       @media screen and (min-width: 830px) { #logo {left: 778px;}}
-      @media (max-width: 450px) { #mobile-image {display: inline-block;} #container {display: none;} }
-      @media (max-width: 400px) { #mobile-image {height: 350px;} }
-      @media (max-width: 350px) { #mobile-image {height: 300px;} }
+      #mobile-image {display: none; width: 100%; height: auto; image-rendering: crisp-edges;}
+            #mobile-image img { max-width:100%; height:auto;}
+      @media screen and (min-width: 830px) {  #logo {left: 778px;}}
+            /* these media queries are to ensure that there isn't loads of whitespace below the image as the screen size decreases. 
+      They may benefit from fine tuning, as your chart may be a different shape to the example */            
+            @media (max-width: 450px) { #mobile-image {display: inline-block;} #container {display: none;} }
+      @media (max-width: 400px) { #mobile-image {height: auto;} }
+      @media (max-width: 350px) { #mobile-image {height: auto;} }
     </style>
 
   </head>
 
   <body>
-    <!-- this part describes the basic structure of the website you'll be creating. It's written in HTML -->  
+
+    <!-- this part describes the basic structure of the website you'll be creating. It's written in HTML -->
     <div id="container"></div>
     <div id="mobile-image">
-      <!-- This image will display instead of the interactive chart on a mobile screen, so change this to the name of the screenshot that you've taken
-        Don't include the logo in the screenshot or it will be included twice 
-        Please upload this screenshot to the WordPress media library and get the link from there, to avoid clogging up AWS with large files. Tom H will need to add one anyway for the AMP version
-        You may wish to include this because a) the interactivity is hard to use on a mobile anyway and b) although the chart scales well for medium screens it doesn't scale well on a mobile -->
-      <img src="https://www.carbonbrief.org/wp-content/uploads/2018/01/Screen-Shot-2018-01-29-at-15.38.15.png"/>
+    <!-- This image will display instead of the interactive chart on a mobile screen, so change this to the name of the screenshot that you've taken (don't include the logo in the screenshot or it will be included twice). 
+          Please upload this screenshot to the WordPress media library and get the link from there, to avoid clogging up AWS with large files. Tom H will need to add one anyway for the AMP version -->
+        <!-- You may wish to include this because a) the interactivity is hard to use on a mobile anyway and b) although the chart scales well for medium screens it doesn't scale well on a mobile -->
+      <img src=""/>
     </div>
     <div id="logocontainer">
-      <div id="logo">
+      <div id="logo" class="footer"></div>
+      <div id="embed" class="footer icon"><i class="fas fa-code"></i></div>
+      <div id="embed-popup"></div>
     </div>
+    
 
     <script type="text/javascript">
+
 
       // this section in the script tags is where everything that controls and draws the map goes. It's written in Javascript
       $(function() {
         Highcharts.setOptions({
 
           lang: {
-            // tells highcharts that thousands are to be separated by a comma
+            // tells highcharts that thousands are to be separated by a comma, when separation is specified
             thousandsSep: ','
           },
           chart: {
             style: {
-              // set the font family for the chart. We use PT Sans to contrast with PT Serif which is the CB body text
+              // set the font family for the chart. We use PT Sans to contrast with PT Serif which is the CB body text.
               fontFamily: 'PT Sans'
             }
           }
@@ -129,7 +157,7 @@
           // options for x axis
           xAxis: {
             crosshair: {
-              //  crosshairs are pairs of perpendicular lines on a graph that move when the mouse moves. In this case we're only setting on on the x axis so there will only be a vertical lines
+              // crosshairs are pairs of perpendicular lines on a graph that move when the mouse moves. In this case we're only setting on on the x axis so there will only be a vertical lines
               color: '#E5E5E5'
             },
             labels: {
@@ -141,22 +169,22 @@
 
           tooltip: {
               valueSuffix: 'C',
-              // defines what's in the tooltip and in what format. <br> is html for a line break and, unusually, doesn't require a closing tag. <b> indicates that the text will be bold and requires a closing tag (</b>)
+              // defines what's in the tooltip and in what format. <br> is html for a line break and doesn't require a closing tag. <b> indicates that the text will be bold and requires a closing tag (</b>)
               pointFormat: '{series.name}: <br> <b>{point.y}</b>',
               // if shared all series will be shown at once
               shared: false
           },
 
           legend: {
-            // set to false if you want to turn the legend off
+            // set to false to turn the legend off
             enabled: true,
             layout: 'horizontal',
             floating: false,
-            verticalAlign: 'top',
+            verticalAlign: 'top'
           },
           data: {
             // change to your spreadsheet
-            // to do this you have to publish the spreadsheet to the web
+            // first publish the spreadsheet to the web
             // then grab the code from the url, the bit after "d/" and before the final "/"
             // eg. https://docs.google.com/spreadsheets/d/1NAzRluJxGjyrJqsI6kjtSYxcPXTIL-lQZ6chFDcx2XI/
             googleSpreadsheetKey: '1tHXWFaPtoSFpkZU6lJSTM2kosJx6H1pwf_jNMiSWE3Q',
@@ -165,7 +193,48 @@
         function(chart) { // on complete
         });
       });
-    
+
     </script>
+  
+    <script type="text/javascript">
+
+      var URL = window.location.href;
+      
+      var containerheight = $("#container").css("height");
+      var containerwidth = $("#container").css("max-width");
+
+
+      $("#embed-popup").append('<div class="embed-code-container"><div id="popup-menu"><button onclick="copyToClipboard(\'#copycode\')"><i class="far fa-clipboard"><p>Copy</p></i></button><i class="fas fa-times" id="close"></i></div><xmp id="copycode"><iframe scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" style="display: initial; margin: 0 auto;" src="' + URL + '" width="' + containerwidth + '" height="' + containerheight + '"></iframe><span style="display:block; height:22px; max-width:800px;"><img src="https://s3.eu-west-2.amazonaws.com/cbhighcharts2019/cb-logo-highcharts.svg" style="width: 22px; height: 22px; margin-top: 2px; margin-bottom: 2px; float:right; background-repeat: no-repeat; background-size: contain;"/></span></xmp></div></div>');
+
+      var varState = 0; 
+
+      $("#embed").click(function () {
+        
+        if (varState == 0) {
+          $("#embed-popup").css({"visibility":"visible", "opacity":1, "transition":"opacity 0.5s linear"});
+          varState = 1;
+        } else {
+          $("#embed-popup").css("visibility", "hidden");
+          varState = 0;
+        }
+
+      });
+
+      $("#close").click(function(){
+        $("#embed-popup").css("visibility", "hidden");
+        varState = 0;
+      });
+
+      function copyToClipboard(element) {
+        var $temp = $("<input>");
+        $("#embed-popup").append($temp);
+        $temp.val($(element).text()).select();
+        document.execCommand("copy");
+        $temp.remove();
+      };
+
+    </script>
+
+
   </body>
 </html>
