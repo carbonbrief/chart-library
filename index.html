@@ -5,7 +5,7 @@
 		<!-- Tells browsers not to scale by default so media queries can be applied -->
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">   
 		<title>Carbon Brief's Interactive Charts'</title>
-		<link type="text/css" rel="stylesheet" href="../css/style.css" />
+		<link type="text/css" rel="stylesheet" href="./css/style.css" />
 		<link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700|PT+Serif:400,400italic" rel="stylesheet" type="text/css">
 		<style type="text/css">
 		
@@ -23,7 +23,8 @@
 			}
 			#wrapper h3:hover {
 				color:#ce9b2f;
-				transition: color .4s ease-in;
+				transition: color .1s ease-in;
+				cursor: pointer;
 			}		
 			.box {
 				float: left;
@@ -43,6 +44,11 @@
 			}
 			.boxInner img {
 				width: 100%;
+			}
+			hr {
+				width:200px;
+				margin-left: 15px;
+				display: inline-block;
 			}
 			@media only screen and (max-width : 350px) {
 				/* Smartphone view: 1 tile */
@@ -101,9 +107,14 @@
 		<section>
 			<h2>Reference links</h2>
 			<div id="wrapper">
+			<h2>Flat graphics</h2>
 			<ul>
-				<a href="https://docs.google.com/document/d/1b_1APiutEpgFUeSQsaBRP367sH5w6dCw_G6xpM5LMpc/edit?usp=sharing" target="_blank"><h2>Step-by-step: non-interactive charts</h2></a>
-				<a href="https://carbonbrief.github.io/chart-library/template.zip"><h2>Files to create social icon shares</h2></a>
+				<li><a href="https://docs.google.com/document/d/1b_1APiutEpgFUeSQsaBRP367sH5w6dCw_G6xpM5LMpc/edit?usp=sharing" target="_blank"><h3>Step-by-step: non-interactive charts</h3></a></li>
+				<li><a href="https://carbonbrief.github.io/chart-library/template.zip"><h3>Files to create social icon shares</h3></a></li>
+			</ul>
+				<hr>
+			<h2>Interactive charts</h2>
+			<ul>
 				<li><a href="https://docs.google.com/document/d/1NgWaOasA5oSadmCsjdjDyOawq9aenrixTtT_GFPLCB8/edit#heading=h.8n2s2vh8b2bb" target="_blank"><h3>How to make a Highchart</h3></a></li>
 				<li><a href="https://docs.google.com/document/d/1DMlSHB9nlOigysjCNToHxdRni6VU9L-6gYgkPLLkh_M/edit" target="_blank"><h3>How to upload a Highcharts graphic to Amazon Web Services</h3></a></li>
 				<li><a href="https://docs.google.com/spreadsheets/d/1u7llJjVUVRIwFBzbODlSdwdBbNG2CmUx_Gu1Or-Dgys/edit#gid=1212689873" target="_blank"><h3>Directory of data viz and scraping tools, and when best to use them</h3></a></li>
