@@ -111,6 +111,8 @@
 
           // options for x axis
           xAxis: {
+            type: 'datetime',
+            dateTimeLabelFormats: '%Y',
             crosshair: {
               // crosshairs are pairs of perpendicular lines on a graph that move when the mouse moves. In this case we're only setting on on the x axis so there will only be a vertical lines
               color: '#E5E5E5'
@@ -123,6 +125,8 @@
           },
 
           tooltip: {
+              xDateFormat: '%Y',
+              valueDecimals: 1,
               valueSuffix: 'C',
               // defines what's in the tooltip and in what format. <br> is html for a line break and doesn't require a closing tag. <b> indicates that the text will be bold and requires a closing tag (</b>)
               pointFormat: '{series.name}: <br> <b>{point.y}</b>',
